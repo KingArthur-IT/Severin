@@ -2,17 +2,21 @@
   <div class="section">
     <div class="container">
       <div class="descrWrapper">
-        <span class="title">severin</span>
-        <span class="subTitle">fotoshooting in tutta Italia</span>
+        <div class="overflow-hidden title-wrapper">
+          <span class="title" :class="{'show': isContentShown}">severin</span>
+        </div>
+        <div class="overflow-hidden">
+          <span class="subTitle" :class="{'show': isContentShown}">fotoshooting in tutta Italia</span>
+        </div>
       </div>
-      <div class="buttonsWrapper">
+      <div class="buttonsWrapper non-opacity" :class="{'show': isContentShown}">
         <div class="button margin">русский</div>
         <div class="button">italiano</div>
       </div>
-      <div class="numberWrapper">
+      <div class="numberWrapper non-opacity" :class="{'show': isContentShown}">
         <span class="number">+39 (320) 030 33 14</span>
       </div>
-      <div class="socialMediaWrapper">
+      <div class="socialMediaWrapper non-opacity" :class="{'show': isContentShown}">
         <div class="socialMedia bottomMargin">Instagram</div>
         <div class="socialMedia">Facebook</div>
       </div>
@@ -23,6 +27,15 @@
 <script>
 export default {
   components: {},
+  data(){
+    return {
+      isContentShown: false
+    }
+  },
+
+  mounted(){
+    this.isContentShown = true;
+  }
 };
 </script>
 
@@ -51,13 +64,20 @@ export default {
   margin: 0 0 80px 0;
 }
 
+.title-wrapper{
+  margin: 0 0 30px 0;
+}
+
 .title {
   font-family: "Inter";
   font-weight: 100;
   font-size: 200px;
   text-transform: uppercase;
   color: $black;
-  margin: 0 0 20px 0;
+  line-height: 80%;
+  display: block;
+  transform: translateY(120%);
+  transition: transform 1.0s ease-in-out;
 }
 
 .subTitle {
@@ -65,8 +85,21 @@ export default {
   font-style: normal;
   font-weight: 300;
   font-size: 20px;
-  line-height: 100%;
+  line-height: 115%;
   color: $black;
+  display: block;
+  transform: translateY(100%);
+  transition: transform 1.0s ease-in-out;
+}
+
+.show{
+  transform: translateY(0);
+  opacity: 1 !important;
+}
+
+.non-opacity{
+  opacity: 0;
+  transition: opacity 1.75s ease-in-out;
 }
 
 .buttonsWrapper {
@@ -143,6 +176,10 @@ export default {
 
 .bottomMargin {
   margin: 0 0 20px 0;
+}
+
+.overflow-hidden{
+  overflow: hidden;
 }
 
 @media (max-width: 1024px) {

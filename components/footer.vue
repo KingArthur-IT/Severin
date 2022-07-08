@@ -53,7 +53,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 .socialMedia {
@@ -84,7 +84,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .contact {
