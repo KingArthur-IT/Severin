@@ -10,8 +10,8 @@
         </div>
       </div>
       <div class="buttonsWrapper non-opacity" :class="{'show': isContentShown}">
-        <div class="button margin">русский</div>
-        <div class="button">italiano</div>
+        <div class="button margin" @click="goToPortfolioPage('rus')">русский</div>
+        <div class="button" @click="goToPortfolioPage('ita')">italiano</div>
       </div>
       <div class="numberWrapper non-opacity" :class="{'show': isContentShown}">
         <span class="number">+39 (320) 030 33 14</span>
@@ -35,6 +35,15 @@ export default {
 
   mounted(){
     this.isContentShown = true;
+  },
+
+  methods:{
+    goToPortfolioPage(lang){
+      this.isContentShown = false;
+      setTimeout(() => {
+        this.$nuxt.$router.push('/portfolio');
+      }, 1750);
+    }
   }
 };
 </script>
@@ -90,16 +99,6 @@ export default {
   display: block;
   transform: translateY(100%);
   transition: transform 1.0s ease-in-out;
-}
-
-.show{
-  transform: translateY(0);
-  opacity: 1 !important;
-}
-
-.non-opacity{
-  opacity: 0;
-  transition: opacity 1.75s ease-in-out;
 }
 
 .buttonsWrapper {
@@ -178,8 +177,14 @@ export default {
   margin: 0 0 20px 0;
 }
 
-.overflow-hidden{
-  overflow: hidden;
+.show{
+    transform: translateY(0) !important;
+    opacity: 1 !important;
+  }
+  
+.non-opacity{
+    opacity: 0;
+    transition: opacity 1.75s ease-in-out;
 }
 
 @media (max-width: 1024px) {

@@ -37,9 +37,11 @@ export default {
   width: 100%;
   display: flex;
   justify-content: center;
-  background-color: $accent;
+  //background-color: $accent;
+  background: transparent;
   margin: 0 0 80px 0;
   padding: 40px 0 0 0;
+  z-index: 3;
 }
 
 .headerContainer {
