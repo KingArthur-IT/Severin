@@ -1,7 +1,7 @@
 <template>
-  <div class="section">
-    <Header pageLink="портфолио" langLink="итальянский" />
-    <div class="container">
+  <div class="section overflow-hidden">
+    <Header pageLink="портфолио" langLink="итальянский" class="non-opacity" :class="{'show': isContentShown}"/>
+    <div class="container about-hero" :class="{'show': isContentShown, 'hide': hideContent}">
       <div class="firstWrapper">
         <img src="/Severin 1.png" class="aboutImg" />
       </div>
@@ -32,12 +32,47 @@
 <script>
 export default {
   components: {},
+  data(){
+    return {
+      isContentShown: false,
+      hideContent: false
+    }
+  },
+  created () {
+      this.$nuxt.$on('toPortfolioPage', () => this.goToPortfolioPage())
+  },
+  mounted(){
+    setTimeout(() => {
+      this.isContentShown = true;
+    }, 500);
+  },
+  methods:{
+    goToPortfolioPage(){
+      this.hideContent = true;
+      this.isContentShown = false;
+      setTimeout(() => {
+        this.$nuxt.$router.push('/portfolio');
+      }, 1000);
+    }
+  }
 };
 </script>
 
-
-
 <style lang="scss" scoped>
+.about-hero{
+  transform: translateY(150%);
+  transition: transform 1.0s ease-in-out;
+}
+
+.hide{
+  transform: translateY(-150%) !important;
+}
+
+.show{
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
 .section {
   width: 100%;
   display: flex;
@@ -95,6 +130,11 @@ export default {
 
 .top {
   margin: 0 0 20px 0;
+}
+
+.non-opacity{
+  opacity: 0;
+  transition: opacity .5s ease-in-out;
 }
 
 @media (max-width: 1024px) {

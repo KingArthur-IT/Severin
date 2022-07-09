@@ -47,6 +47,7 @@ export default {
     }
   },
   created () {
+      this.$nuxt.$on('toAboutPage', () => this.goToAboutPage())
       if (process.client) { 
           window.addEventListener('wheel', this.handleWheel);
       }
@@ -75,6 +76,15 @@ export default {
       posStep = this.rightWrapperY.direction * scrollStep;
       if (this.rightWrapperY.currentPosition + posStep > this.rightWrapperY.endPosition && this.rightWrapperY.currentPosition + posStep < this.rightWrapperY.startPosition)
         this.rightWrapperY.currentPosition += posStep;
+    },
+    goToAboutPage(){
+      this.isWrapperAnimation = true;
+      this.isContentShown = false;
+      this.leftWrapperY.currentPosition = 20;
+      this.rightWrapperY.currentPosition = -120;
+      setTimeout(() => {
+        this.$nuxt.$router.push('/about');
+      }, 2500);
     }
   },
 };

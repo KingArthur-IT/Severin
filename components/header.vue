@@ -1,7 +1,7 @@
 <template>
   <div class="headerSection">
     <div class="headerContainer">
-      <span class="link">{{ pageLink }}</span>
+      <span class="link" @click="linkClick">{{ pageLink }}</span>
       <img src="/Logo.svg" alt="logoSeverin" class="headerLogo" />
       <span class="link">{{ langLink }}</span>
     </div>
@@ -23,6 +23,13 @@ export default {
     pageLink: String,
     langLink: String,
   },
+  methods:{
+    linkClick(){
+      if (this.pageLink === 'портфолио')
+        this.$nuxt.$emit('toPortfolioPage');
+      else this.$nuxt.$emit('toAboutPage');
+    }
+  }
 };
 </script>
 
