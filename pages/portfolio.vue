@@ -4,22 +4,28 @@
     <div class="container portfolio__wrapper">
       <div  id="left-wrapper" 
             class="wrapper" 
-            :class="{'transition-3s': isWrapperAnimation}" 
+            :class="{'transition-3s': isWrapperAnimation, 'non-event': openedSliderId.includes('right')}" 
             :style="`transform: translateY(${leftWrapperY.currentPosition}%)`"
       >
-        <Slider v-for="i in 6" :key="i"
+        <Slider v-for="(name, i) in folders.filter((item, index) => {return index % 2 === 0} )" :key="i"
                 :id="`left-${i}`" 
+                :folderName="name.name"
+                :imgCount="name.imgCount"
                 class="marginBottom" 
                 :translateY="leftWrapperY.currentPosition"
-                :class="{'non-opacity non-event': openedSliderId !== '' & openedSliderId !== `left-${i}`}"
+                :class="{'non-opacity': openedSliderId !== '' & openedSliderId !== `left-${i}`}"
         />
       </div>
-      <div class="wrapper" :class="{'transition-3s': isWrapperAnimation}" :style="`transform: translateY(${rightWrapperY.currentPosition}%)`">
-        <Slider v-for="i in 6" :key="i"
+      <div  class="wrapper" 
+            :class="{'transition-3s': isWrapperAnimation, 'non-event': openedSliderId.includes('left')}" 
+            :style="`transform: translateY(${rightWrapperY.currentPosition}%)`">
+        <Slider v-for="(name, i) in folders.filter((item, index) => {return index % 2 === 1} )" :key="i"
                 :id="`right-${i}`" 
+                :folderName="name.name"
+                :imgCount="name.imgCount"
                 class="marginBottom" 
                 :translateY="rightWrapperY.currentPosition"
-                :class="{'non-opacity non-event': openedSliderId !== '' & openedSliderId !== `right-${i}`}"
+                :class="{'non-opacity': openedSliderId !== '' & openedSliderId !== `right-${i}`}"
         />
       </div>
     </div>
@@ -51,7 +57,26 @@ export default {
         endPosition: -85.5,
         direction: -1
       },
-      openedSliderId: ''
+      openedSliderId: '',
+      folders: [
+        {name: 'firstSlider', imgCount: 9},
+        {name: 'secondSlider', imgCount: 8},
+        {name: 'thirdSlider', imgCount: 8},
+        {name: 'fourthSlider', imgCount: 8},
+        {name: 'fifthSlider', imgCount: 6},
+        {name: 'sixthSlider', imgCount: 7},
+        {name: 'seventhSlider', imgCount: 9},
+        {name: 'eighthSlider', imgCount: 7},
+        {name: 'ninthSlider', imgCount: 9},
+        {name: 'tenthSlider', imgCount: 6},
+        {name: 'eleventhSlider', imgCount: 8},
+        {name: 'twelfthSlider', imgCount: 14},
+        {name: 'thirteenthSlider', imgCount: 10},
+        {name: 'fourteenthSlider', imgCount: 8},
+        {name: 'fifteenthSlider', imgCount: 10},
+        {name: 'sixteenthSlider', imgCount: 5},
+        {name: 'seventeenthSlider', imgCount: 7},
+      ]
     }
   },
   created () {
