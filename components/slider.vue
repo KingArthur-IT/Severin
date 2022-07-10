@@ -17,13 +17,23 @@
                     class="slider__preview-img" 
                     :src="require(`@/static/${folderName}/${i}.png`)" 
                     alt=""
-          >
+            >
         </div>
       </div>
       <div class="slider__controls-wrapper" :class="{'show': isOpened}">
           <div class="slider__controls-btns">
               <div class="slider__controls-btn" @click="prevImg" :class="{'non-active-btn': selectedImg === 1}">prev</div>
               <div class="slider__controls-btn" @click="nextImg" :class="{'non-active-btn': selectedImg === imgCount}">next</div>
+          </div>
+      </div>
+      <div class="slider__img-list" :class="{'show': isOpened}">
+          <div class="slider__img-wrapper" :style="`transform: translateX(${imgListTransform}%)`">
+            <img    v-for="i in imgCount" :key="i"
+                    :src="require(`@/static/${folderName}/${i}.png`)" 
+                    alt=""
+                    :class="{'active-img': i === selectedImg}"
+                    @click="selectedImg = i"
+            >
           </div>
       </div>
   </div>
@@ -91,8 +101,11 @@ export default {
     computed:{
         previewTransform(){
             return -100.0 * (this.selectedImg - 1) / this.imgCount;
-        }
-    }
+        },
+        imgListTransform(){
+            return -100.0 * (this.selectedImg - 2) / this.imgCount;
+        },
+    },
 }
 </script>
 
@@ -107,7 +120,7 @@ export default {
     box-shadow: 0px 20.8333px 20.8333px rgba(0, 0, 0, 0.25);
     object-fit: cover;
     transition: all 1.0s ease-in-out;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     overflow: hidden;
 }
 .slider__preview{
@@ -120,7 +133,6 @@ export default {
     height: 600px;
 }
 
-.slider__controls-wrapper,
 .slider__back-wrapper{
     opacity: 0;
     pointer-events: none;
@@ -138,7 +150,10 @@ export default {
 }
 
 .slider__controls-wrapper{
-
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1s ease-in-out;
+    margin-bottom: 20px;
 }
 
 .slider__controls-btns{
@@ -161,6 +176,32 @@ export default {
 
 .non-active-btn{
     color: #868585;
+}
+
+.slider__img-list{
+    width: 100%;
+    overflow-x: scroll;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1s ease-in-out;
+}
+
+.slider__img-wrapper{
+    width: fit-content;
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slider__img-wrapper img{
+    height: 100px;
+    margin: 0 10px;
+    border-radius: 10px;
+    filter: brightness(1.5) contrast(0.5);
+    cursor: pointer;
+}
+
+.active-img{
+    filter: brightness(1.0) contrast(1.0) !important;
 }
 
 </style>

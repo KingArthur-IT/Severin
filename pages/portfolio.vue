@@ -1,5 +1,5 @@
 <template>
-  <div class="section portfolio overflow-hidden">
+  <div class="section portfolio overflow-hidden" :class="{'h-120': openedSliderId !== ''}">
     <Header pageLink="обо мне" langLink="итальянский" class="non-opacity" :class="{'show': isContentShown, 'non-event': openedSliderId !== ''}"/>
     <div class="container portfolio__wrapper">
       <div  id="left-wrapper" 
@@ -212,6 +212,10 @@ export default {
 
 .non-event{
   pointer-events: none;
+}
+
+.h-120{
+  height: 120vh;
 }
 
 @media (max-width: 1024px) {
