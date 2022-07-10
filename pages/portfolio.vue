@@ -1,47 +1,32 @@
 <template>
   <div class="section portfolio overflow-hidden">
-    <Header pageLink="обо мне" langLink="итальянский" class="non-opacity" :class="{'show': isContentShown}"/>
+    <Header pageLink="обо мне" langLink="итальянский" class="non-opacity" :class="{'show': isContentShown, 'non-event': openedSliderId !== ''}"/>
     <div class="container portfolio__wrapper">
       <div  id="left-wrapper" 
             class="wrapper" 
             :class="{'transition-3s': isWrapperAnimation}" 
             :style="`transform: translateY(${leftWrapperY.currentPosition}%)`"
       >
-        <Slider :id="'left-1'" class="marginBottom" :translateY="leftWrapperY.currentPosition"/>
-        <Slider :id="'left-2'" class="marginBottom" :translateY="leftWrapperY.currentPosition"/>
-        <Slider :id="'left-3'" class="marginBottom" :translateY="leftWrapperY.currentPosition"/>
-        <Slider :id="'left-4'" class="marginBottom" :translateY="leftWrapperY.currentPosition"/>
-        <Slider :id="'left-5'" class="marginBottom" :translateY="leftWrapperY.currentPosition"/>
-        <Slider :id="'left-6'" class="marginBottom" :translateY="leftWrapperY.currentPosition"/>
-        <!--
-        <img src="../static/preview/1.png" class="preveiw marginBottom" />
-        <img src="../static/preview/3.png" class="preveiw marginBottom" />
-        <img src="../static/preview/5.png" class="preveiw marginBottom" />
-        <img src="../static/preview/7.png" class="preveiw marginBottom" />
-        <img src="../static/preview/9.png" class="preveiw marginBottom" />
-        <img src="../static/preview/11.png" class="preveiw marginBottom" />
-        -->
+        <Slider v-for="i in 6" :key="i"
+                :id="`left-${i}`" 
+                class="marginBottom" 
+                :translateY="leftWrapperY.currentPosition"
+                :class="{'non-opacity non-event': openedSliderId !== '' & openedSliderId !== `left-${i}`}"
+        />
       </div>
       <div class="wrapper" :class="{'transition-3s': isWrapperAnimation}" :style="`transform: translateY(${rightWrapperY.currentPosition}%)`">
-        <Slider :id="'right-1'" class="marginBottom" :translateY="rightWrapperY.currentPosition"/>
-        <Slider :id="'right-2'" class="marginBottom" :translateY="rightWrapperY.currentPosition"/>
-        <Slider :id="'right-3'" class="marginBottom" :translateY="rightWrapperY.currentPosition"/>
-        <Slider :id="'right-4'" class="marginBottom" :translateY="rightWrapperY.currentPosition"/>
-        <Slider :id="'right-5'" class="marginBottom" :translateY="rightWrapperY.currentPosition"/>
-        <Slider :id="'right-6'" class="marginBottom" :translateY="rightWrapperY.currentPosition"/>
-        <!--
-        <img src="../static/preview/2.png" class="preveiw marginTop" />
-        <img src="../static/preview/4.png" class="preveiw marginTop" />
-        <img src="../static/preview/6.png" class="preveiw marginTop" />
-        <img src="../static/preview/8.png" class="preveiw marginTop" />
-        <img src="../static/preview/10.png" class="preveiw marginTop" />
-        <img src="../static/preview/12.png" class="preveiw marginTop" />
-        -->
+        <Slider v-for="i in 6" :key="i"
+                :id="`right-${i}`" 
+                class="marginBottom" 
+                :translateY="rightWrapperY.currentPosition"
+                :class="{'non-opacity non-event': openedSliderId !== '' & openedSliderId !== `right-${i}`}"
+        />
       </div>
     </div>
-    <Footer class="non-opacity portfolio__footer" :class="{'show': isContentShown}"/>
+    <Footer class="non-opacity portfolio__footer" :class="{'show': isContentShown, 'non-event': openedSliderId !== ''}"/>
     <Drawer class="drawer" :class="{'openedMenu': isMenuOpened, 'closedMenu': !isMenuOpened}" />
   </div>
+  
 </template>
 
 
@@ -65,7 +50,8 @@ export default {
         startPosition: -1.8,
         endPosition: -85.5,
         direction: -1
-      }
+      },
+      openedSliderId: ''
     }
   },
   created () {
@@ -78,6 +64,15 @@ export default {
         this.isMenuOpened = false;
         if (page === 'about')
           this.goToAboutPage();
+      });
+
+      this.$nuxt.$on('openSlider', (id) => {
+        this.isContentShown = false;
+        this.openedSliderId = id;
+      });
+      this.$nuxt.$on('closeSlider', () => {
+        this.isContentShown = true;
+        this.openedSliderId = '';
       });
   },
   mounted(){
@@ -93,7 +88,7 @@ export default {
   methods: {
     handleWheel (e) {
       //if enter animation is in process
-      if (this.isWrapperAnimation) return;
+      if (this.isWrapperAnimation || this.openedSliderId !== '') return;
 
       const scrollStep = e.deltaY * 0.01;
       //left wrapper scroll
@@ -188,6 +183,10 @@ export default {
 
 .show{
   opacity: 1 !important;
+}
+
+.non-event{
+  pointer-events: none;
 }
 
 @media (max-width: 1024px) {

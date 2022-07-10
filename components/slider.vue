@@ -4,7 +4,7 @@
         :style="`transform: translate(${transform.x}px, ${transform.y}px)`"
   >
       <div class="slider__back-wrapper">
-          <svg class="slider__back" viewBox="0 0 50 9" style="stroke: white; fill: white; width: 5rem; height: 5rem; color: rgb(40, 40, 41);">
+          <svg @click="closeSlider"  class="slider__back" viewBox="0 0 50 9" style="stroke: white; fill: white; width: 5rem; height: 5rem; color: rgb(40, 40, 41);">
               <path stroke="currentColor" fill="currentColor" d="m0 4.5 5-3m-5 3 5 3m45-3h-77"></path>
           </svg>
       </div>
@@ -39,17 +39,23 @@ export default {
     },
     methods:{
         openSlider(){
+            if (this.transform.x !== 0 && this.transform.y !== 0) return;
+
             const offsetTop = document.getElementById(this.id).offsetTop;
             const wrapperHeight = document.getElementById('left-wrapper').clientHeight;
-            this.transform.y = 60 - (offsetTop + wrapperHeight * this.translateY * 0.01);
+            this.transform.y = 20 - (offsetTop + wrapperHeight * this.translateY * 0.01);
 
             const offsetLeft = document.getElementById(this.id).getBoundingClientRect().left;
             const itemWidth = document.getElementById(this.id).clientWidth;
             this.transform.x = - offsetLeft + 0.5 * ( window.innerWidth) - 0.5 * itemWidth;
+
+            this.$nuxt.$emit('openSlider', this.id);
         },
         closeSlider(){
             this.transform.y = 0;
             this.transform.x = 0;
+
+            this.$nuxt.$emit('closeSlider');
         }
     }
 }
@@ -57,7 +63,8 @@ export default {
 
 <style scoped>
 .slider{
-    transition: transform 1.0s ease-in-out;
+    transition: all 1.0s ease-in-out;
+    z-index: 11;
 }
 .slider__preview{
     
@@ -70,5 +77,7 @@ export default {
 }
 .slider__back{
     height: 40px !important;
+    cursor: pointer;
 }
+
 </style>
