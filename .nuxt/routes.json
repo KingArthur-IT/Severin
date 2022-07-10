@@ -7,13 +7,6 @@
     "_name": "_ce662a60"
   },
   {
-    "name": "drawer",
-    "path": "/drawer",
-    "component": "/Users/artem/Documents/GitHub/Severin/pages/drawer.vue",
-    "chunkName": "pages/drawer",
-    "_name": "_47748d3e"
-  },
-  {
     "name": "portfolio",
     "path": "/portfolio",
     "component": "/Users/artem/Documents/GitHub/Severin/pages/portfolio.vue",

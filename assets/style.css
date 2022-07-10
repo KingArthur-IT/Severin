@@ -5,3 +5,17 @@ body{
 .overflow-hidden{
     overflow: hidden;
 }
+
+.drawer{
+    transition: all 1.0s ease-in-out;
+}
+
+.openedMenu{
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.closedMenu{
+opacity: 0;
+transform: translateY(-100%);
+}

@@ -1,10 +1,12 @@
 <template>
   <div class="section">
     <div class="container">
+      <!--
       <img src="/closeIcon.svg" alt="logoSeverin" class="closeIcon" />
+      -->
       <div class="pagesWrapper">
-        <nuxt-link class="page pageMarginBottom" to="/portfolio">Портфолио</nuxt-link>
-        <nuxt-link class="page" to="/about">Обо мне</nuxt-link>
+        <div class="page pageMarginBottom" @click="$nuxt.$emit('closeDrawer', 'portfolio')">Портфолио</div>
+        <div class="page" @click="$nuxt.$emit('closeDrawer', 'about')">Обо мне</div>
       </div>
       <div class="buttonsWrapper">
         <span class="button marginRight">RU</span>
@@ -27,6 +29,11 @@
 <script>
 export default {
   components: {},
+  methods:{
+    close(){
+      console.log('close')
+    }
+  }
 };
 </script>
 
@@ -40,6 +47,9 @@ export default {
   background-color: $accent;
   height: 100vh;
   width: 100%;
+  position: fixed;
+  top: 0;
+  bottom: 0;
 }
 
 .container {

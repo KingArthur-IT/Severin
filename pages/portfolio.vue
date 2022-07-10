@@ -2,24 +2,45 @@
   <div class="section portfolio overflow-hidden">
     <Header pageLink="обо мне" langLink="итальянский" class="non-opacity" :class="{'show': isContentShown}"/>
     <div class="container portfolio__wrapper">
-      <div class="wrapper" :class="{'transition-3s': isWrapperAnimation}" :style="`transform: translateY(${leftWrapperY.currentPosition}%)`">
+      <div  id="left-wrapper" 
+            class="wrapper" 
+            :class="{'transition-3s': isWrapperAnimation}" 
+            :style="`transform: translateY(${leftWrapperY.currentPosition}%)`"
+      >
+        <Slider :id="'left-1'" class="marginBottom" :translateY="leftWrapperY.currentPosition"/>
+        <Slider :id="'left-2'" class="marginBottom" :translateY="leftWrapperY.currentPosition"/>
+        <Slider :id="'left-3'" class="marginBottom" :translateY="leftWrapperY.currentPosition"/>
+        <Slider :id="'left-4'" class="marginBottom" :translateY="leftWrapperY.currentPosition"/>
+        <Slider :id="'left-5'" class="marginBottom" :translateY="leftWrapperY.currentPosition"/>
+        <Slider :id="'left-6'" class="marginBottom" :translateY="leftWrapperY.currentPosition"/>
+        <!--
         <img src="../static/preview/1.png" class="preveiw marginBottom" />
         <img src="../static/preview/3.png" class="preveiw marginBottom" />
         <img src="../static/preview/5.png" class="preveiw marginBottom" />
         <img src="../static/preview/7.png" class="preveiw marginBottom" />
         <img src="../static/preview/9.png" class="preveiw marginBottom" />
         <img src="../static/preview/11.png" class="preveiw marginBottom" />
+        -->
       </div>
       <div class="wrapper" :class="{'transition-3s': isWrapperAnimation}" :style="`transform: translateY(${rightWrapperY.currentPosition}%)`">
+        <Slider :id="'right-1'" class="marginBottom" :translateY="rightWrapperY.currentPosition"/>
+        <Slider :id="'right-2'" class="marginBottom" :translateY="rightWrapperY.currentPosition"/>
+        <Slider :id="'right-3'" class="marginBottom" :translateY="rightWrapperY.currentPosition"/>
+        <Slider :id="'right-4'" class="marginBottom" :translateY="rightWrapperY.currentPosition"/>
+        <Slider :id="'right-5'" class="marginBottom" :translateY="rightWrapperY.currentPosition"/>
+        <Slider :id="'right-6'" class="marginBottom" :translateY="rightWrapperY.currentPosition"/>
+        <!--
         <img src="../static/preview/2.png" class="preveiw marginTop" />
         <img src="../static/preview/4.png" class="preveiw marginTop" />
         <img src="../static/preview/6.png" class="preveiw marginTop" />
         <img src="../static/preview/8.png" class="preveiw marginTop" />
         <img src="../static/preview/10.png" class="preveiw marginTop" />
         <img src="../static/preview/12.png" class="preveiw marginTop" />
+        -->
       </div>
     </div>
     <Footer class="non-opacity portfolio__footer" :class="{'show': isContentShown}"/>
+    <Drawer class="drawer" :class="{'openedMenu': isMenuOpened, 'closedMenu': !isMenuOpened}" />
   </div>
 </template>
 
@@ -32,6 +53,7 @@ export default {
     return {
       isContentShown: false,
       isWrapperAnimation: true,
+      isMenuOpened: false,
       leftWrapperY: {
         currentPosition: 20,
         startPosition: -83,
@@ -47,10 +69,16 @@ export default {
     }
   },
   created () {
-      this.$nuxt.$on('toAboutPage', () => this.goToAboutPage())
       if (process.client) { 
           window.addEventListener('wheel', this.handleWheel);
-      }
+      };
+      this.$nuxt.$on('toAboutPage', () => this.goToAboutPage());
+      this.$nuxt.$on('menuToggle', () => this.toggleMenu());
+      this.$nuxt.$on('closeDrawer', (page) => {
+        this.isMenuOpened = false;
+        if (page === 'about')
+          this.goToAboutPage();
+      });
   },
   mounted(){
     setTimeout(() => {
@@ -85,6 +113,9 @@ export default {
       setTimeout(() => {
         this.$nuxt.$router.push('/about');
       }, 2500);
+    },
+    toggleMenu(){
+      this.isMenuOpened = !this.isMenuOpened;
     }
   },
 };

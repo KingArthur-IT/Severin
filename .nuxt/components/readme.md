@@ -7,6 +7,8 @@ You can directly use them in pages and other components without the need to impo
 **Tip:** If a component is conditionally rendered with `v-if` and is big, it is better to use `Lazy` or `lazy-` prefix to lazy load.
 
 - `<BurgerIcon>` | `<burger-icon>` (components/burgerIcon.vue)
+- `<Drawer>` | `<drawer>` (components/drawer.vue)
 - `<DrawerMenu>` | `<drawer-menu>` (components/drawerMenu.vue)
 - `<Footer>` | `<footer>` (components/footer.vue)
 - `<Header>` | `<header>` (components/header.vue)
+- `<Slider>` | `<slider>` (components/slider.vue)

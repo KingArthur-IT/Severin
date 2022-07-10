@@ -25,6 +25,7 @@
       </div>
     </div>
     <Footer />
+    <Drawer class="drawer" :class="{'openedMenu': isMenuOpened, 'closedMenu': !isMenuOpened}" />
   </div>
 </template>
 
@@ -35,11 +36,18 @@ export default {
   data(){
     return {
       isContentShown: false,
-      hideContent: false
+      hideContent: false,
+      isMenuOpened: false,
     }
   },
   created () {
-      this.$nuxt.$on('toPortfolioPage', () => this.goToPortfolioPage())
+      this.$nuxt.$on('toPortfolioPage', () => this.goToPortfolioPage());
+      this.$nuxt.$on('menuToggle', () => this.toggleMenu());
+      this.$nuxt.$on('closeDrawer', (page) => {
+        this.isMenuOpened = false;
+        if (page === 'portfolio')
+          this.goToPortfolioPage();
+      });
   },
   mounted(){
     setTimeout(() => {
@@ -53,6 +61,9 @@ export default {
       setTimeout(() => {
         this.$nuxt.$router.push('/portfolio');
       }, 1000);
+    },
+    toggleMenu(){
+      this.isMenuOpened = !this.isMenuOpened;
     }
   }
 };

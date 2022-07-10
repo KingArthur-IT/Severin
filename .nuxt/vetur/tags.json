@@ -2,6 +2,9 @@
   "BurgerIcon": {
     "description": "Auto imported from components/burgerIcon.vue"
   },
+  "Drawer": {
+    "description": "Auto imported from components/drawer.vue"
+  },
   "DrawerMenu": {
     "description": "Auto imported from components/drawerMenu.vue"
   },
@@ -10,5 +13,8 @@
   },
   "Header": {
     "description": "Auto imported from components/header.vue"
+  },
+  "Slider": {
+    "description": "Auto imported from components/slider.vue"
   }
 }

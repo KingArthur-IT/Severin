@@ -7,7 +7,7 @@
     </div>
     <div class="headerMobileContainer">
         <img src="/Logo.svg" alt="logoSeverin" class="headerLogo" />
-        <div class="burgerWrapper">
+        <div class="burgerWrapper" @click="$nuxt.$emit('menuToggle')">
           <BurgerIcon />
         </div>
     </div>
