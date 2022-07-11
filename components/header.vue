@@ -3,7 +3,8 @@
     <div class="headerContainer">
       <span class="link" @click="linkClick">{{ pageLink }}</span>
       <img src="/Logo.svg" alt="logoSeverin" class="headerLogo" />
-      <span class="link">{{ langLink }}</span>
+      <nuxt-link v-if="$i18n.locale === 'ita'" class="link" :to="switchLocalePath('rus')">русский</nuxt-link>
+      <nuxt-link v-else class="link" :to="switchLocalePath('ita')">italiano</nuxt-link>
     </div>
     <div class="headerMobileContainer">
         <img src="/Logo.svg" alt="logoSeverin" class="headerLogo" />
@@ -21,13 +22,17 @@ export default {
   components: {},
   props: {
     pageLink: String,
-    langLink: String,
   },
   methods:{
     linkClick(){
       if (this.pageLink === 'портфолио')
         this.$nuxt.$emit('toPortfolioPage');
       else this.$nuxt.$emit('toAboutPage');
+    }
+  },
+  computed: {
+    availableLocales () {
+      return this.$i18n.locales;
     }
   }
 };
@@ -67,6 +72,7 @@ export default {
   line-height: 100%;
   color: $black;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .headerMobileContainer {

@@ -217,6 +217,9 @@ export default {
     width: 350px !important;
     height: 480px !important;
   }
+  .slider__img-wrapper img{
+    margin: 0 5px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -228,6 +231,9 @@ export default {
     width: 280px !important;
     height: 400px !important;
   }
+  .slider__img-wrapper img{
+        height: 75px;
+    }
 }
 
 @media (max-width: 568px) {
@@ -239,7 +245,9 @@ export default {
         width: 180px !important;
         height: 280px !important;
     }
-
+    .slider__img-wrapper img{
+        height: 63px;
+    }
 }
 
 @media (max-width: 375px) {
@@ -251,7 +259,9 @@ export default {
         width: 150px !important;
         height: 220px !important;
     }
-
+    .slider__img-wrapper img{
+        height: 50px;
+    }
 }
 </style>
 

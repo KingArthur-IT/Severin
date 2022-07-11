@@ -9,8 +9,8 @@
         <div class="page" @click="$nuxt.$emit('closeDrawer', 'about')">Обо мне</div>
       </div>
       <div class="buttonsWrapper">
-        <span class="button marginRight">RU</span>
-        <span class="button">IT</span>
+        <span class="button marginRight" @click="changeLang('rus')">RU</span>
+        <span class="button" @click="changeLang('ita')">IT</span>
       </div>
       <div class="contactsWrapper">
         <span class="contact marginBottom">+39 (320) 030 33 14</span>
@@ -30,8 +30,15 @@
 export default {
   components: {},
   methods:{
-    close(){
-      console.log('close')
+    changeLang(lang){
+      const currentPath = this.$nuxt.$route.path;
+      if ((currentPath.includes('rus') && lang === 'rus') || (!currentPath.includes('rus') && lang === 'ita')){
+        this.$nuxt.$emit('closeDrawer');
+        return;
+      };
+      if (lang === 'rus')
+          this.$nuxt.$router.push(`rus${currentPath}`);
+      else this.$nuxt.$router.push(currentPath.replace('rus/', ''));
     }
   }
 };

@@ -1,6 +1,6 @@
 <template>
   <div class="section portfolio overflow-hidden" :class="{'h-120': openedSliderId !== ''}">
-    <Header pageLink="обо мне" langLink="итальянский" class="non-opacity" :class="{'show': isContentShown, 'non-event': openedSliderId !== ''}"/>
+    <Header :pageLink="$t('about')" class="non-opacity" :class="{'show': isContentShown, 'non-event': openedSliderId !== ''}"/>
     <div class="container portfolio__wrapper">
       <div  id="left-wrapper" 
             class="wrapper" 

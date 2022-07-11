@@ -22,15 +22,27 @@ export const routerOptions = {
   routes: [{
     path: "/about",
     component: _ce662a60,
-    name: "about"
+    name: "about___ita"
   }, {
     path: "/portfolio",
     component: _f1282cea,
-    name: "portfolio"
+    name: "portfolio___ita"
+  }, {
+    path: "/rus",
+    component: _8ef674d6,
+    name: "index___rus"
+  }, {
+    path: "/rus/about",
+    component: _ce662a60,
+    name: "about___rus"
+  }, {
+    path: "/rus/portfolio",
+    component: _f1282cea,
+    name: "portfolio___rus"
   }, {
     path: "/",
     component: _8ef674d6,
-    name: "index"
+    name: "index___ita"
   }],
 
   fallback: false

@@ -1,20 +1,41 @@
 [
   {
-    "name": "about",
+    "name": "about___ita",
     "path": "/about",
     "component": "/Users/artem/Documents/GitHub/Severin/pages/about.vue",
     "chunkName": "pages/about",
     "_name": "_ce662a60"
   },
   {
-    "name": "portfolio",
+    "name": "portfolio___ita",
     "path": "/portfolio",
     "component": "/Users/artem/Documents/GitHub/Severin/pages/portfolio.vue",
     "chunkName": "pages/portfolio",
     "_name": "_f1282cea"
   },
   {
-    "name": "index",
+    "name": "index___rus",
+    "path": "/rus",
+    "component": "/Users/artem/Documents/GitHub/Severin/pages/index.vue",
+    "chunkName": "pages/index",
+    "_name": "_8ef674d6"
+  },
+  {
+    "name": "about___rus",
+    "path": "/rus/about",
+    "component": "/Users/artem/Documents/GitHub/Severin/pages/about.vue",
+    "chunkName": "pages/about",
+    "_name": "_ce662a60"
+  },
+  {
+    "name": "portfolio___rus",
+    "path": "/rus/portfolio",
+    "component": "/Users/artem/Documents/GitHub/Severin/pages/portfolio.vue",
+    "chunkName": "pages/portfolio",
+    "_name": "_f1282cea"
+  },
+  {
+    "name": "index___ita",
     "path": "/",
     "component": "/Users/artem/Documents/GitHub/Severin/pages/index.vue",
     "chunkName": "pages/index",

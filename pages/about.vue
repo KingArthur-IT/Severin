@@ -1,26 +1,15 @@
 <template>
   <div class="section overflow-hidden">
-    <Header pageLink="портфолио" langLink="итальянский" class="non-opacity" :class="{'show': isContentShown}"/>
+    <Header :pageLink="$t('portfolio')" class="non-opacity" :class="{'show': isContentShown}"/>
     <div class="container about-hero" :class="{'show': isContentShown, 'hide': hideContent}">
       <div class="firstWrapper">
         <img src="/Severin 1.png" class="aboutImg" />
       </div>
       <div class="secondWrapper">
         <div class="descrInner">
-          <span class="title">Обо мне</span>
-          <p class="descr top">
-            Привет, меня зовут Галина, я живу и работаю фотографом в Тоскане, но
-            и с большим удовольствием провожу фотосъемки по другим регионам
-            Италии. Фотография- это не только моя работа, но и моя жизнь. Мне
-            как-то подарили фотокамеру и тут случилась магия, с тех пор мы
-            неразлучны.
-          </p>
-          <p class="descr">
-            Я поклонник живых фотографий, эмоций и жизни в кадре. Мои съёмки
-            проходят в формате непренуждённой прогулки, где вы наслаждайтесь
-            моментом, а я переношу ваши эмоции на пленку. У вас на всю жизнь
-            останется уникальная память о вашей поездке.
-          </p>
+          <span class="title">{{$t('about')}}</span>
+          <p class="descr top">{{$t('description1')}}</p>
+          <p class="descr">{{$t('description2')}}</p>
         </div>
       </div>
     </div>
@@ -89,7 +78,9 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   background-color: $accent;
+  min-height: 100vh;
 }
 
 .container {
@@ -128,6 +119,10 @@ export default {
   font-size: 32px;
   line-height: 160%;
   color: $black;
+}
+
+.title::first-letter{
+  text-transform: uppercase;
 }
 
 .descr {

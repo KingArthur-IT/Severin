@@ -6,7 +6,7 @@
           <span class="title" :class="{'show': isContentShown}">severin</span>
         </div>
         <div class="overflow-hidden">
-          <span class="subTitle" :class="{'show': isContentShown}">fotoshooting in tutta Italia</span>
+          <span class="subTitle" :class="{'show': isContentShown}">{{ $t('fotoshooting') }}</span>
         </div>
       </div>
       <div class="buttonsWrapper non-opacity" :class="{'show': isContentShown}">
@@ -41,7 +41,9 @@ export default {
     goToPortfolioPage(lang){
       this.isContentShown = false;
       setTimeout(() => {
-        this.$nuxt.$router.push('/portfolio');
+        if (lang === 'rus')
+          this.$nuxt.$router.push('rus/portfolio');
+        else this.$nuxt.$router.push('/portfolio');
       }, 1750);
     }
   }
@@ -85,7 +87,7 @@ export default {
   color: $black;
   line-height: 80%;
   display: block;
-  transform: translateY(120%);
+  transform: translateY(140%);
   transition: transform 1.0s ease-in-out;
 }
 
