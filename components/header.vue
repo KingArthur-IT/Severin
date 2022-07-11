@@ -1,14 +1,14 @@
 <template>
   <div class="headerSection">
     <div class="headerContainer">
-      <span class="link" @click="linkClick">{{ pageLink }}</span>
+      <span class="link" @click="linkClick">{{ $t(pageLink) }}</span>
       <img src="/Logo.svg" alt="logoSeverin" class="headerLogo" />
       <nuxt-link v-if="$i18n.locale === 'ita'" class="link" :to="switchLocalePath('rus')">русский</nuxt-link>
       <nuxt-link v-else class="link" :to="switchLocalePath('ita')">italiano</nuxt-link>
     </div>
     <div class="headerMobileContainer">
-        <img src="/Logo.svg" alt="logoSeverin" class="headerLogo" />
-        <div class="burgerWrapper" @click="$nuxt.$emit('menuToggle')">
+        <img src="/Logo.svg" alt="logoSeverin" class="headerLogo" :class="{'non-visible': !isLogoVisible}"/>
+        <div class="burgerWrapper">
           <BurgerIcon />
         </div>
     </div>
@@ -22,10 +22,14 @@ export default {
   components: {},
   props: {
     pageLink: String,
+    isLogoVisible: {
+      type: Boolean,
+      default: true
+    }
   },
   methods:{
     linkClick(){
-      if (this.pageLink === 'портфолио')
+      if (this.pageLink === 'portfolio')
         this.$nuxt.$emit('toPortfolioPage');
       else this.$nuxt.$emit('toAboutPage');
     }
@@ -34,6 +38,9 @@ export default {
     availableLocales () {
       return this.$i18n.locales;
     }
+  },
+  created(){
+    this.$nuxt.$on('menuClick', () => this.$nuxt.$emit('menuToggle'));
   }
 };
 </script>
@@ -77,6 +84,12 @@ export default {
 
 .headerMobileContainer {
   display: none;
+  opacity: 1;
+  transition: 0.5s ease-in-out;
+}
+
+.non-visible{
+  opacity: 0 !important;
 }
 
 @media (max-width: 1024px) {

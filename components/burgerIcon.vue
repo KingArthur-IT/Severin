@@ -21,6 +21,7 @@ export default {
   }),
   methods: {
     toggle() {
+      this.$nuxt.$emit('menuClick'); 
       this.isBurgerActive = !this.isBurgerActive;
     },
   },

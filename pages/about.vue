@@ -1,6 +1,6 @@
 <template>
   <div class="section overflow-hidden">
-    <Header :pageLink="$t('portfolio')" class="non-opacity" :class="{'show': isContentShown}"/>
+    <Header :pageLink="'portfolio'" :isLogoVisible="!isMenuOpened" class="non-opacity" :class="{'show': isContentShown}"/>
     <div class="container about-hero" :class="{'show': isContentShown, 'hide': hideContent}">
       <div class="firstWrapper">
         <img src="/Severin 1.png" class="aboutImg" />
@@ -33,10 +33,15 @@ export default {
       this.$nuxt.$on('toPortfolioPage', () => this.goToPortfolioPage());
       this.$nuxt.$on('menuToggle', () => this.toggleMenu());
       this.$nuxt.$on('closeDrawer', (page) => {
-        this.isMenuOpened = false;
-        if (page === 'portfolio')
+        if (page === 'portfolio'){
+          this.isMenuOpened = false;
           this.goToPortfolioPage();
-      });
+        }
+        else {
+          document.getElementById('burger').classList.remove('active');
+          this.isMenuOpened = false;
+        };
+      })
   },
   mounted(){
     setTimeout(() => {
@@ -52,7 +57,8 @@ export default {
       }, 1000);
     },
     toggleMenu(){
-      this.isMenuOpened = !this.isMenuOpened;
+      const isActive = document.getElementById('burger').classList.contains('active');
+      this.isMenuOpened = !isActive;
     }
   }
 };

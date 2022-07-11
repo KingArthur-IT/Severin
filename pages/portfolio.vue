@@ -1,6 +1,6 @@
 <template>
   <div class="section portfolio overflow-hidden" :class="{'h-120': openedSliderId !== ''}">
-    <Header :pageLink="$t('about')" class="non-opacity" :class="{'show': isContentShown, 'non-event': openedSliderId !== ''}"/>
+    <Header :pageLink="$t('about')" class="non-opacity" :isLogoVisible="!isMenuOpened" :class="{'show': isContentShown, 'non-event': openedSliderId !== ''}"/>
     <div class="container portfolio__wrapper">
       <div  id="left-wrapper" 
             class="wrapper" 
@@ -47,14 +47,14 @@ export default {
       isMenuOpened: false,
       leftWrapperY: {
         currentPosition: 20,
-        startPosition: -83,
+        startPosition: -88,
         endPosition: 1,
         direction: 1
       },
       rightWrapperY: {
         currentPosition: -120,
-        startPosition: -1.8,
-        endPosition: -85.5,
+        startPosition: 0.5,
+        endPosition: -77.5,
         direction: -1
       },
       openedSliderId: '',
@@ -86,9 +86,14 @@ export default {
       this.$nuxt.$on('toAboutPage', () => this.goToAboutPage());
       this.$nuxt.$on('menuToggle', () => this.toggleMenu());
       this.$nuxt.$on('closeDrawer', (page) => {
-        this.isMenuOpened = false;
-        if (page === 'about')
+        if (page === 'about'){
+          this.isMenuOpened = false;
           this.goToAboutPage();
+        }
+        else {
+          document.getElementById('burger').classList.remove('active');
+          this.isMenuOpened = false;
+        }
       });
 
       this.$nuxt.$on('openSlider', (id) => {
@@ -135,7 +140,8 @@ export default {
       }, 2500);
     },
     toggleMenu(){
-      this.isMenuOpened = !this.isMenuOpened;
+      const isActive = document.getElementById('burger').classList.contains('active');
+      this.isMenuOpened = !isActive;
     }
   },
 };

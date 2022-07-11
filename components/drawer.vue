@@ -33,7 +33,7 @@ export default {
     changeLang(lang){
       const currentPath = this.$nuxt.$route.path;
       if ((currentPath.includes('rus') && lang === 'rus') || (!currentPath.includes('rus') && lang === 'ita')){
-        this.$nuxt.$emit('closeDrawer');
+        this.$nuxt.$emit('closeDrawer', '');
         return;
       };
       if (lang === 'rus')
