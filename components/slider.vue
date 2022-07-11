@@ -74,7 +74,7 @@ export default {
 
             const offsetTop = document.getElementById(this.id).offsetTop;
             const wrapperHeight = document.getElementById('left-wrapper').clientHeight;
-            this.transform.y = 20 - (offsetTop + wrapperHeight * this.translateY * 0.01);
+            this.transform.y = 60 - (offsetTop + wrapperHeight * this.translateY * 0.01);
 
             const offsetLeft = document.getElementById(this.id).getBoundingClientRect().left;
             const itemWidth = document.getElementById(this.id).clientWidth;
@@ -137,6 +137,7 @@ export default {
     opacity: 0;
     pointer-events: none;
     transition: opacity 1s ease-in-out;
+    position: absolute;
 }
 
 .slider__back{
@@ -147,6 +148,7 @@ export default {
 .show{
     opacity: 1 !important;
     pointer-events: all !important;
+    position: relative !important;
 }
 
 .slider__controls-wrapper{
@@ -154,6 +156,7 @@ export default {
     pointer-events: none;
     transition: opacity 1s ease-in-out;
     margin-bottom: 20px;
+    position: absolute;
 }
 
 .slider__controls-btns{
@@ -180,10 +183,11 @@ export default {
 
 .slider__img-list{
     width: 100%;
-    overflow-x: scroll;
+    overflow-x: hidden;
     opacity: 0;
     pointer-events: none;
     transition: opacity 1s ease-in-out;
+    position: absolute;
 }
 
 .slider__img-wrapper{
@@ -203,5 +207,53 @@ export default {
 .active-img{
     filter: brightness(1.0) contrast(1.0) !important;
 }
+
+@media (max-width: 1024px) {
+  .slider{
+      width: 350px !important;
+  }
+  .slider__preview-img,
+  .slider__preview-wrapper {
+    width: 350px !important;
+    height: 480px !important;
+  }
+}
+
+@media (max-width: 768px) {
+.slider{
+      width: 280px !important;
+  }
+  .slider__preview-img,
+  .slider__preview-wrapper {
+    width: 280px !important;
+    height: 400px !important;
+  }
+}
+
+@media (max-width: 568px) {
+    .slider{
+      width: 180px !important;
+  }
+    .slider__preview-img,
+    .slider__preview-wrapper {
+        width: 180px !important;
+        height: 280px !important;
+    }
+
+}
+
+@media (max-width: 375px) {
+    .slider{
+      width: 150px !important;
+    }
+    .slider__preview-img,
+    .slider__preview-wrapper {
+        width: 150px !important;
+        height: 220px !important;
+    }
+
+}
+</style>
+
 
 </style>
