@@ -15,7 +15,7 @@
         <div class="slider__preview" :style="`transform: translateX(${previewTransform}%)`">
             <img    class="slider__preview-img" 
                     :src="require(`@/static/${folderName}/1.png`)" 
-                    loading="normal"
+                    rel="preload"
             >
             <nuxt-img   v-for="i in imgCount-1" :key="i"
                         class="slider__preview-img" 
