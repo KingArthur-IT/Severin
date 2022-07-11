@@ -13,11 +13,15 @@
             @click="openSlider" 
       >
         <div class="slider__preview" :style="`transform: translateX(${previewTransform}%)`">
-            <img    v-for="i in imgCount" :key="i"
-                    class="slider__preview-img" 
-                    :src="require(`@/static/${folderName}/${i}.png`)" 
-                    alt=""
+            <img    class="slider__preview-img" 
+                    :src="require(`@/static/${folderName}/1.png`)" 
+                    loading="normal"
             >
+            <nuxt-img   v-for="i in imgCount-1" :key="i"
+                        class="slider__preview-img" 
+                        :src="`/${folderName}/${i+1}.png`" 
+                        loading="lazy"
+            />
         </div>
       </div>
       <div class="slider__controls-wrapper" :class="{'show': isOpened}">
@@ -28,12 +32,12 @@
       </div>
       <div class="slider__img-list" :class="{'show': isOpened}">
           <div class="slider__img-wrapper" :style="`transform: translateX(${imgListTransform}%)`">
-            <img    v-for="i in imgCount" :key="i"
-                    :src="require(`@/static/${folderName}/${i}.png`)" 
-                    alt=""
-                    :class="{'active-img': i === selectedImg}"
-                    @click="selectedImg = i"
-            >
+            <nuxt-img   v-for="i in imgCount" :key="i"
+                        :class="{'active-img': i === selectedImg}"
+                        :src="`/${folderName}/${i}.png`" 
+                        loading="lazy"
+                        @click="selectedImg = i"
+            />
           </div>
       </div>
   </div>
@@ -179,6 +183,7 @@ export default {
 
 .non-active-btn{
     color: #868585;
+    cursor: default;
 }
 
 .slider__img-list{

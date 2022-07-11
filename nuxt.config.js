@@ -48,7 +48,7 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    '@nuxtjs/style-resources', '@nuxtjs/i18n'
+    '@nuxtjs/style-resources', '@nuxtjs/i18n', '@nuxt/image'
   ],
 
   i18n: {
