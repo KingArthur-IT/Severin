@@ -1,7 +1,8 @@
 <template>
   <div class="section portfolio overflow-hidden" :class="{'h-120': openedSliderId !== ''}"
-       v-touch:swipe.top="topTouchHandle"
-       v-touch:swipe.bottom="bottomTouchHandle"
+       v-touch:moving="movingTouchHandle"
+       v-touch:start="startTouchHandle"
+       v-touch:end="endTouchHandle"
   >
     <Header :pageLink="$t('about')" class="non-opacity" :isLogoVisible="!isMenuOpened" :class="{'show': isContentShown, 'non-event': openedSliderId !== ''}"/>
     <div class="container portfolio__wrapper">
@@ -64,6 +65,7 @@ export default {
         direction: -1
       },
       openedSliderId: '',
+      touchStart: -1,
       folders: [
         {name: 'firstSlider', imgCount: 9},
         {name: 'secondSlider', imgCount: 8},
@@ -152,11 +154,17 @@ export default {
       const isActive = document.getElementById('burger').classList.contains('active');
       this.isMenuOpened = !isActive;
     },
-    topTouchHandle(){
-      this.moveWrapper(5);
+    endTouchHandle(e){
+      this.startTouchHandle = -1;
     },
-    bottomTouchHandle(){
-      this.moveWrapper(-5);
+    startTouchHandle(e){
+      this.startTouchHandle = e.changedTouches[0].clientY;
+    },
+    movingTouchHandle(e){
+      if (this.startTouchHandle > 0){
+        const direction = Math.sign(e.changedTouches[0].clientY - this.startTouchHandle);
+        this.moveWrapper(direction * 0.2);
+      }
     }
   },
 };
