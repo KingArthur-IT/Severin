@@ -8,8 +8,8 @@
     <div class="container portfolio__wrapper">
       <div  id="left-wrapper" 
             class="wrapper" 
-            :class="{'transition-3s': isWrapperAnimation, 'non-event': openedSliderId.includes('right')}" 
-            :style="`transform: translateY(${leftWrapperY.currentPosition}%)`"
+            :class="{'transition-3s': isWrapperAnimation, 'non-event': openedSliderId.includes('right'), 'wrapper-hide': isOutAnimation}" 
+            :style="`transform: translate(${leftWrapperY.currentPositionX}%, ${leftWrapperY.currentPosition}%)`"
       >
         <Slider v-for="(name, i) in folders.filter((item, index) => {return index % 2 === 0} )" :key="i"
                 :id="`left-${i}`" 
@@ -23,8 +23,8 @@
       </div>
       <div  id="right-wrapper" 
             class="wrapper" 
-            :class="{'transition-3s': isWrapperAnimation, 'non-event': openedSliderId.includes('left')}" 
-            :style="`transform: translateY(${rightWrapperY.currentPosition}%)`">
+            :class="{'transition-3s': isWrapperAnimation, 'non-event': openedSliderId.includes('left'), 'wrapper-hide': isOutAnimation}" 
+            :style="`transform: translate(${rightWrapperY.currentPositionX}%, ${rightWrapperY.currentPosition}%)`">
         <Slider v-for="(name, i) in folders.filter((item, index) => {return index % 2 === 1} )" :key="i"
                 :id="`right-${i}`" 
                 :folderName="name.name"
@@ -51,14 +51,17 @@ export default {
     return {
       isContentShown: false,
       isWrapperAnimation: true,
+      isOutAnimation: false,
       isMenuOpened: false,
       leftWrapperY: {
+        currentPositionX: 0,
         currentPosition: 20,
         startPosition: -88,
         endPosition: 1,
         direction: 1
       },
       rightWrapperY: {
+        currentPositionX: 0,
         currentPosition: -120,
         startPosition: 0.5,
         endPosition: -77.5,
@@ -114,6 +117,8 @@ export default {
       });
   },
   mounted(){
+    this.leftWrapperY.currentPositionX = 0.0;
+    this.rightWrapperY.currentPositionX = 0.0;
     setTimeout(() => {
       this.isWrapperAnimation = false;
     }, 2000);
@@ -142,13 +147,18 @@ export default {
       this.moveWrapper(scrollStep);
     },
     goToAboutPage(){
-      this.isWrapperAnimation = true;
+      //this.isWrapperAnimation = true;
+      this.isOutAnimation = true;
       this.isContentShown = false;
-      this.leftWrapperY.currentPosition = 20;
-      this.rightWrapperY.currentPosition = -120;
+      this.leftWrapperY.currentPosition += 2;
+      this.rightWrapperY.currentPosition += 2;
+      this.leftWrapperY.currentPositionX = -2;
+      this.rightWrapperY.currentPositionX = 2;
+      //this.leftWrapperY.currentPosition = 20;
+      //this.rightWrapperY.currentPosition = -120;
       setTimeout(() => {
         this.$nuxt.$router.push('/about');
-      }, 2500);
+      }, 500);
     },
     toggleMenu(){
       const isActive = document.getElementById('burger').classList.contains('active');
@@ -237,6 +247,11 @@ export default {
 
 .h-120{
   height: 120vh;
+}
+
+.wrapper-hide{
+  opacity: 0 !important;
+  transition: all 0.5s ease-in-out !important;
 }
 
 @media (max-width: 1024px) {
