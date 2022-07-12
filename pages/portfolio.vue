@@ -1,5 +1,8 @@
 <template>
-  <div class="section portfolio overflow-hidden" :class="{'h-120': openedSliderId !== ''}">
+  <div class="section portfolio overflow-hidden" :class="{'h-120': openedSliderId !== ''}"
+       v-touch:swipe.top="topTouchHandle"
+       v-touch:swipe.bottom="bottomTouchHandle"
+  >
     <Header :pageLink="$t('about')" class="non-opacity" :isLogoVisible="!isMenuOpened" :class="{'show': isContentShown, 'non-event': openedSliderId !== ''}"/>
     <div class="container portfolio__wrapper">
       <div  id="left-wrapper" 
@@ -14,9 +17,11 @@
                 class="marginBottom" 
                 :translateY="leftWrapperY.currentPosition"
                 :class="{'non-opacity': openedSliderId !== '' & openedSliderId !== `left-${i}`}"
+                :wrapperId="'left-wrapper'"
         />
       </div>
-      <div  class="wrapper" 
+      <div  id="right-wrapper" 
+            class="wrapper" 
             :class="{'transition-3s': isWrapperAnimation, 'non-event': openedSliderId.includes('left')}" 
             :style="`transform: translateY(${rightWrapperY.currentPosition}%)`">
         <Slider v-for="(name, i) in folders.filter((item, index) => {return index % 2 === 1} )" :key="i"
@@ -26,10 +31,11 @@
                 class="marginBottom" 
                 :translateY="rightWrapperY.currentPosition"
                 :class="{'non-opacity': openedSliderId !== '' & openedSliderId !== `right-${i}`}"
+                :wrapperId="'right-wrapper'"
         />
       </div>
     </div>
-    <Footer class="non-opacity portfolio__footer" :class="{'show': isContentShown, 'non-event': openedSliderId !== ''}"/>
+    <Footer class="non-opacity portfolio__footer" :class="{'show': isContentShown && !isMenuOpened, 'non-event': openedSliderId !== ''}"/>
     <Drawer class="drawer" :class="{'openedMenu': isMenuOpened, 'closedMenu': !isMenuOpened}" />
   </div>
   
@@ -116,11 +122,7 @@ export default {
     }, 500);
   },
   methods: {
-    handleWheel (e) {
-      //if enter animation is in process
-      if (this.isWrapperAnimation || this.openedSliderId !== '') return;
-
-      const scrollStep = e.deltaY * 0.01;
+    moveWrapper(scrollStep){
       //left wrapper scroll
       let posStep = this.leftWrapperY.direction * scrollStep;
       if (this.leftWrapperY.currentPosition + posStep < this.leftWrapperY.endPosition && this.leftWrapperY.currentPosition + posStep > this.leftWrapperY.startPosition)
@@ -129,6 +131,13 @@ export default {
       posStep = this.rightWrapperY.direction * scrollStep;
       if (this.rightWrapperY.currentPosition + posStep > this.rightWrapperY.endPosition && this.rightWrapperY.currentPosition + posStep < this.rightWrapperY.startPosition)
         this.rightWrapperY.currentPosition += posStep;
+    },
+    handleWheel (e) {
+      //if enter animation is in process
+      if (this.isWrapperAnimation || this.openedSliderId !== '') return;
+
+      const scrollStep = e.deltaY * 0.01;
+      this.moveWrapper(scrollStep);
     },
     goToAboutPage(){
       this.isWrapperAnimation = true;
@@ -142,6 +151,12 @@ export default {
     toggleMenu(){
       const isActive = document.getElementById('burger').classList.contains('active');
       this.isMenuOpened = !isActive;
+    },
+    topTouchHandle(){
+      this.moveWrapper(5);
+    },
+    bottomTouchHandle(){
+      this.moveWrapper(-5);
     }
   },
 };

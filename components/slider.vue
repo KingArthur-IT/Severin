@@ -61,6 +61,10 @@ export default {
         imgCount: {
             type: Number,
             default: 1
+        },
+        wrapperId:{
+            type: String,
+            default: 'left-wrapper'
         }
     },
     data(){
@@ -77,8 +81,10 @@ export default {
             this.isOpened = true;
 
             const offsetTop = document.getElementById(this.id).offsetTop;
-            const wrapperHeight = document.getElementById('left-wrapper').clientHeight;
-            this.transform.y = 60 - (offsetTop + wrapperHeight * this.translateY * 0.01);
+            const wrapperHeight = document.getElementById(this.wrapperId).clientHeight;
+            
+            const top = this.wrapperId === 'left-wrapper' ? 200 : 60;
+            this.transform.y = top - (offsetTop + wrapperHeight * this.translateY * 0.01);
 
             const offsetLeft = document.getElementById(this.id).getBoundingClientRect().left;
             const itemWidth = document.getElementById(this.id).clientWidth;

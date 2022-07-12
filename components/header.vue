@@ -1,7 +1,7 @@
 <template>
   <div class="headerSection">
     <div class="headerContainer">
-      <span class="link" @click="linkClick">{{ $t(pageLink) }}</span>
+      <span class="link" @click="linkClick">{{ pageLink }}</span>
       <img src="/Logo.svg" alt="logoSeverin" class="headerLogo" />
       <nuxt-link v-if="$i18n.locale === 'ita'" class="link" :to="switchLocalePath('rus')">русский</nuxt-link>
       <nuxt-link v-else class="link" :to="switchLocalePath('ita')">italiano</nuxt-link>
