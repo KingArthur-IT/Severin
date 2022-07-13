@@ -3,9 +3,10 @@
        v-touch:moving="movingTouchHandle"
        v-touch:start="startTouchHandle"
        v-touch:end="endTouchHandle"
+       @wheel.prevent
   >
     <Header :pageLink="$t('about')" class="non-opacity" :isLogoVisible="!isMenuOpened" :class="{'show': isContentShown, 'non-event': openedSliderId !== ''}"/>
-    <div class="container portfolio__wrapper" @wheel.prevent>
+    <div class="container portfolio__wrapper">
       <div  id="left-wrapper" 
             class="wrapper" 
             :class="{'transition-3s': isWrapperAnimation, 'non-event': openedSliderId.includes('right'), 'wrapper-hide': isOutAnimation}" 
