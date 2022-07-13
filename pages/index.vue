@@ -1,5 +1,5 @@
 <template>
-  <div class="section">
+  <div class="section" @wheel.prevent>
     <div class="container">
       <div class="descrWrapper">
         <div class="overflow-hidden title-wrapper">
@@ -87,8 +87,9 @@ export default {
   color: $black;
   line-height: 80%;
   display: block;
-  transform: translateY(140%);
-  transition: transform 1.0s ease-in-out;
+  transform: translateY(125%);
+  transition: transform 1.0s ease-in-out, opacity 1.5s ease-in-out;
+  opacity: 0;
 }
 
 .subTitle {
@@ -100,7 +101,8 @@ export default {
   color: $black;
   display: block;
   transform: translateY(100%);
-  transition: transform 1.0s ease-in-out;
+  transition: transform 1.0s ease-in-out, opacity 1.5s ease-in-out;
+  opacity: 0;
 }
 
 .buttonsWrapper {

@@ -33,9 +33,9 @@ export default {
   width: 100%;
   display: flex;
   justify-content: center;
-  //background-color: $accent;
-  background: transparent;
+  background-color: $accent;
   padding-bottom: 32px;
+  padding-top: 10px;
   margin: 80px 0 0 0;
 }
 

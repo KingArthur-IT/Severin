@@ -1,12 +1,12 @@
 <template>
-  <div class="section">
+  <div class="section" @wheel.prevent>
     <div class="container">
       <!--
       <img src="/closeIcon.svg" alt="logoSeverin" class="closeIcon" />
       -->
       <div class="pagesWrapper">
-        <div class="page pageMarginBottom" @click="$nuxt.$emit('closeDrawer', 'portfolio')">Портфолио</div>
-        <div class="page" @click="$nuxt.$emit('closeDrawer', 'about')">Обо мне</div>
+        <div class="page pageMarginBottom" @click="$nuxt.$emit('closeDrawer', 'portfolio')">{{$t('portfolio')}}</div>
+        <div class="page" @click="$nuxt.$emit('closeDrawer', 'about')">{{$t('about')}}</div>
       </div>
       <div class="buttonsWrapper">
         <span class="button marginRight" @click="changeLang('rus')">RU</span>
@@ -36,9 +36,18 @@ export default {
         this.$nuxt.$emit('closeDrawer', '');
         return;
       };
-      if (lang === 'rus')
+      if (lang === 'rus'){
+        this.$nuxt.$emit('closeDrawer', '');
+        setTimeout(() => {
           this.$nuxt.$router.push(`rus${currentPath}`);
-      else this.$nuxt.$router.push(currentPath.replace('rus/', ''));
+        }, 500);
+      }
+      else {
+        this.$nuxt.$emit('closeDrawer', '');
+        setTimeout(() => {
+          this.$nuxt.$router.push(currentPath.replace('rus/', ''));
+        }, 500);
+      }
     }
   }
 };
@@ -96,6 +105,9 @@ export default {
   font-size: 64px;
   line-height: 100%;
   cursor: pointer;
+}
+.page::first-letter{
+  text-transform: uppercase;
 }
 
 .pageMarginBottom {

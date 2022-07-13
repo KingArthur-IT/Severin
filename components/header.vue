@@ -56,10 +56,9 @@ export default {
   width: 100%;
   display: flex;
   justify-content: center;
-  //background-color: $accent;
-  background: transparent;
+  background-color: $accent;
   margin: 0 0 80px 0;
-  padding: 40px 0 0 0;
+  padding: 40px 0 10px 0;
   z-index: 3;
 }
 
@@ -95,6 +94,7 @@ export default {
 @media (max-width: 1024px) {
   .headerLogo {
       margin: 0 auto;
+      transition: 0.5s ease-in-out;
     }
 
   .headerContainer {
@@ -114,6 +114,10 @@ export default {
     align-items: center;
     justify-content: space-between;
     width: 67.339vw;
+  }
+
+  .burgerWrapper{
+    position: absolute;
   }
 
 

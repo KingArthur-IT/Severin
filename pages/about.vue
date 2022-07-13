@@ -54,7 +54,7 @@ export default {
       this.isContentShown = false;
       setTimeout(() => {
         this.$nuxt.$router.push('/portfolio');
-      }, 1000);
+      }, 500);
     },
     toggleMenu(){
       const isActive = document.getElementById('burger').classList.contains('active');
@@ -66,12 +66,15 @@ export default {
 
 <style lang="scss" scoped>
 .about-hero{
-  transform: translateY(150%);
-  transition: transform 1.0s ease-in-out;
+  transform: translateY(30%);
+  transition: transform 1.0s ease-in-out, opacity 1.5s ease-in-out;
+  opacity: 0;
 }
 
 .hide{
-  transform: translateY(-150%) !important;
+  transform: translateY(-80%) !important;
+  transition: transform 1.0s ease-in-out, opacity 0.5s ease-in-out;
+  opacity: 0 !important;
 }
 
 .show{

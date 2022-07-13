@@ -5,7 +5,7 @@
        v-touch:end="endTouchHandle"
   >
     <Header :pageLink="$t('about')" class="non-opacity" :isLogoVisible="!isMenuOpened" :class="{'show': isContentShown, 'non-event': openedSliderId !== ''}"/>
-    <div class="container portfolio__wrapper">
+    <div class="container portfolio__wrapper" @wheel.prevent>
       <div  id="left-wrapper" 
             class="wrapper" 
             :class="{'transition-3s': isWrapperAnimation, 'non-event': openedSliderId.includes('right'), 'wrapper-hide': isOutAnimation}" 
@@ -36,7 +36,7 @@
         />
       </div>
     </div>
-    <Footer class="non-opacity portfolio__footer" :class="{'show': isContentShown && !isMenuOpened, 'non-event': openedSliderId !== ''}"/>
+    <Footer class="non-opacity portfolio__footer" :class="{'show': isFooterVisible && !isMenuOpened, 'non-event': openedSliderId !== ''}"/>
     <Drawer class="drawer" :class="{'openedMenu': isMenuOpened, 'closedMenu': !isMenuOpened}" />
   </div>
   
@@ -175,8 +175,16 @@ export default {
         const direction = Math.sign(e.changedTouches[0].clientY - this.startTouchHandle);
         this.moveWrapper(direction * 0.2);
       }
-    }
+    },
   },
+  computed: {
+    isFooterVisible(){
+      const delta = 10;
+      const isLeftWrapperDown = Math.abs(this.leftWrapperY.currentPosition - this.leftWrapperY.endPosition) < delta;
+      const isRightWrapperDown = Math.abs(this.rightWrapperY.currentPosition - this.rightWrapperY.endPosition) < delta;
+      return this.isContentShown && isLeftWrapperDown && isRightWrapperDown;
+    }
+  }
 };
 </script>
 
