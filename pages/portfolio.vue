@@ -161,7 +161,9 @@ export default {
   created () {
       if (process.client) { 
           window.addEventListener('wheel', this.handleWheel);
+          window.addEventListener('resize', this.onResizeHandle);
       };
+
       this.$nuxt.$on('toAboutPage', () => this.goToAboutPage());
       this.$nuxt.$on('menuToggle', () => this.toggleMenu());
       this.$nuxt.$on('closeDrawer', (page) => {
@@ -272,6 +274,9 @@ export default {
         this.moveMobileWrapper(direction * 0.2);
       }
     },
+    onResizeHandle(){
+      
+    }
   },
   computed: {
     isFooterVisible(){
@@ -291,8 +296,8 @@ export default {
       return window.innerWidth < 600 ? 5 : 3;
     },
     mobileLeftStartPosition(){
-      return window.innerWidth < 400 ? -65 : window.innerWidth < 600 ? -79 : -84;
-    }
+      return window.innerWidth < 400 ? -72 : window.innerWidth < 600 ? -79 : -84;
+    },
   }
 };
 </script>
