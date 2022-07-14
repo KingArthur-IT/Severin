@@ -95,6 +95,7 @@ export default {
 
   data(){
     return {
+      windowWidth: 0,
       isContentShown: false,
       isWrapperAnimation: true,
       isOutAnimation: false,
@@ -160,8 +161,9 @@ export default {
   },
   created () {
       if (process.client) { 
-          window.addEventListener('wheel', this.handleWheel);
-          window.addEventListener('resize', this.onResizeHandle);
+        this.onResizeHandle();
+        window.addEventListener('wheel', this.handleWheel);
+        window.addEventListener('resize', this.onResizeHandle);
       };
 
       this.$nuxt.$on('toAboutPage', () => this.goToAboutPage());
@@ -275,7 +277,10 @@ export default {
       }
     },
     onResizeHandle(){
-      
+      this.windowWidth = window.innerWidth;
+
+      this.leftMobileWrapperY.currentPosition = this.mobileLeftStartPosition;
+      this.rightMobileWrapperY.currentPosition = this.mobileRightStartPosition;
     }
   },
   computed: {
@@ -287,16 +292,16 @@ export default {
       return this.isContentShown && isLeftWrapperDown && isRightWrapperDown && isMiddleWrapperDown;
     },
     mobileRightEndPosition(){
-      return window.innerWidth < 400 ? -69 : window.innerWidth < 600 ? -81 : -85;
+      return this.windowWidth < 361 ? -69 : this.windowWidth < 400 ? -75 : this.windowWidth < 600 ? -81 : -85;
     },
     mobileRightStartPosition(){
-      return  window.innerWidth < 400 ? 6 : window.innerWidth < 600 ? 3 : 2;
+      return  this.windowWidth < 400 ? 6 : this.windowWidth < 600 ? 3 : 2;
     },
     mobileLeftEndPosition(){
-      return window.innerWidth < 600 ? 5 : 3;
+      return this.windowWidth < 600 ? 5 : 3;
     },
     mobileLeftStartPosition(){
-      return window.innerWidth < 400 ? -72 : window.innerWidth < 600 ? -79 : -84;
+      return this.windowWidth < 361 ? -65 : this.windowWidth < 400 ? -72 : this.windowWidth < 600 ? -79 : -84;
     },
   }
 };
