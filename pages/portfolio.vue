@@ -9,7 +9,7 @@
     <div class="container portfolio__wrapper desktop">
       <div  id="left-wrapper" 
             class="wrapper" 
-            :class="{'transition-3s': isWrapperAnimation, 'non-event': openedSliderId.includes('right'), 'wrapper-hide': isOutAnimation}" 
+            :class="{'transition-3s': isWrapperAnimation, 'non-event': openedSliderId.includes('right') || openedSliderId.includes('middle'), 'wrapper-hide': isOutAnimation}" 
             :style="`transform: translate(${leftWrapperY.currentPositionX}%, ${leftWrapperY.currentPosition}%)`"
       >
         <Slider v-for="(name, i) in folders.filter((item, index) => {return index % 3 === 0} )" :key="i"
@@ -24,7 +24,7 @@
       </div>
       <div  id="middle-wrapper" 
             class="wrapper" 
-            :class="{'transition-3s': isWrapperAnimation, 'non-event': openedSliderId.includes('left'), 'wrapper-hide': isOutAnimation}" 
+            :class="{'transition-3s': isWrapperAnimation, 'non-event': openedSliderId.includes('left') || openedSliderId.includes('right'), 'wrapper-hide': isOutAnimation}" 
             :style="`transform: translate(${middleWrapperY.currentPositionX}%, ${middleWrapperY.currentPosition}%)`">
         <Slider v-for="(name, i) in folders.filter((item, index) => {return index % 3 === 1} )" :key="i"
                 :id="`middle-${i}`" 
@@ -38,7 +38,7 @@
       </div>
       <div  id="right-wrapper" 
             class="wrapper" 
-            :class="{'transition-3s': isWrapperAnimation, 'non-event': openedSliderId.includes('left'), 'wrapper-hide': isOutAnimation}" 
+            :class="{'transition-3s': isWrapperAnimation, 'non-event': openedSliderId.includes('left') || openedSliderId.includes('middle'), 'wrapper-hide': isOutAnimation}" 
             :style="`transform: translate(${rightWrapperY.currentPositionX}%, ${rightWrapperY.currentPosition}%)`">
         <Slider v-for="(name, i) in folders.filter((item, index) => {return index % 3 === 2} )" :key="i"
                 :id="`right-${i}`" 
@@ -122,7 +122,7 @@ export default {
       },
       leftMobileWrapperY: {
         currentPositionX: 0,
-        currentPosition: 20,
+        currentPosition: 35,
         startPosition: -84,
         endPosition: 3,
         direction: 1
@@ -197,9 +197,12 @@ export default {
       this.middleWrapperY.currentPosition = this.middleWrapperY.startPosition;
       this.rightWrapperY.currentPosition = this.rightWrapperY.startPosition;
 
-      this.leftMobileWrapperY.currentPosition = this.leftMobileWrapperY.startPosition;
-      this.rightMobileWrapperY.currentPosition = this.rightMobileWrapperY.startPosition;
+      this.leftMobileWrapperY.currentPosition = this.mobileLeftStartPosition;
+      this.rightMobileWrapperY.currentPosition = this.mobileRightStartPosition;
     }, 500);
+  },
+  beforeDestroy(){
+    window.removeEventListener('wheel', this.handleWheel);
   },
   methods: {
     moveWrapper(scrollStep){
@@ -219,11 +222,11 @@ export default {
     moveMobileWrapper(scrollStep){
       //left wrapper scroll
       let posStep = this.leftMobileWrapperY.direction * scrollStep;
-      if (this.leftMobileWrapperY.currentPosition + posStep < this.leftMobileWrapperY.endPosition && this.leftMobileWrapperY.currentPosition + posStep > this.leftMobileWrapperY.startPosition)
+      if (this.leftMobileWrapperY.currentPosition + posStep > this.mobileLeftStartPosition && this.leftMobileWrapperY.currentPosition + posStep < this.mobileLeftEndPosition)
         this.leftMobileWrapperY.currentPosition += posStep;
       //rigth wrapper scroll
       posStep = this.rightMobileWrapperY.direction * scrollStep;
-      if (this.rightMobileWrapperY.currentPosition + posStep > this.rightMobileWrapperY.endPosition && this.rightMobileWrapperY.currentPosition + posStep < this.rightMobileWrapperY.startPosition)
+      if (this.rightMobileWrapperY.currentPosition + posStep > this.mobileRightEndPosition && this.rightMobileWrapperY.currentPosition + posStep < this.mobileRightStartPosition)
         this.rightMobileWrapperY.currentPosition += posStep;
     },
     handleWheel (e) {
@@ -277,6 +280,18 @@ export default {
       const isMiddleWrapperDown = Math.abs(this.middleWrapperY.currentPosition - this.middleWrapperY.endPosition) < delta;
       const isRightWrapperDown = Math.abs(this.rightWrapperY.currentPosition - this.rightWrapperY.endPosition) < delta;
       return this.isContentShown && isLeftWrapperDown && isRightWrapperDown && isMiddleWrapperDown;
+    },
+    mobileRightEndPosition(){
+      return window.innerWidth < 400 ? -69 : window.innerWidth < 600 ? -81 : -85;
+    },
+    mobileRightStartPosition(){
+      return  window.innerWidth < 400 ? 6 : window.innerWidth < 600 ? 3 : 2;
+    },
+    mobileLeftEndPosition(){
+      return window.innerWidth < 600 ? 5 : 3;
+    },
+    mobileLeftStartPosition(){
+      return window.innerWidth < 400 ? -65 : window.innerWidth < 600 ? -79 : -84;
     }
   }
 };

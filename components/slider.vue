@@ -76,7 +76,7 @@ export default {
     },
     methods:{
         openSlider(){
-            if (this.transform.x !== 0 && this.transform.y !== 0) return;
+            if (this.transform.x !== 0 || this.transform.y !== 0) return;
 
             this.isOpened = true;
 
@@ -200,10 +200,7 @@ export default {
     pointer-events: none;
     transition: opacity 0.5s ease-in-out;
     position: absolute;
-    bottom: -120px;
-}
-.slider__img-list.show{
-    bottom: -120px;
+    bottom: -160px;
 }
 
 .slider__img-wrapper{
