@@ -261,7 +261,6 @@ export default {
     },
     startTouchHandle(e){
       this.startTouchHandle = e.changedTouches[0].clientY;
-      console.log(this.startTouchHandle)
     },
     movingTouchHandle(e){
       if (this.startTouchHandle > 0){

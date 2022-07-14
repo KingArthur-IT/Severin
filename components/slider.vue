@@ -198,11 +198,12 @@ export default {
     overflow-x: hidden;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 1s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
     position: absolute;
+    bottom: -120px;
 }
 .slider__img-list.show{
-    bottom: -150px;
+    bottom: -120px;
 }
 
 .slider__img-wrapper{

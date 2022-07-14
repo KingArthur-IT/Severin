@@ -6,11 +6,11 @@
       <nuxt-link v-if="$i18n.locale === 'ita'" class="link" :to="switchLocalePath('rus')">русский</nuxt-link>
       <nuxt-link v-else class="link" :to="switchLocalePath('ita')">italiano</nuxt-link>
     </div>
-    <div class="headerMobileContainer">
-        <img src="/Logo.svg" alt="logoSeverin" class="headerLogo" :class="{'non-visible': !isLogoVisible}"/>
-        <div class="burgerWrapper">
-          <BurgerIcon />
-        </div>
+    <div class="headerMobileContainer" :class="{'non-visible': !isLogoVisible}">
+        <img src="/Logo.svg" alt="logoSeverin" class="headerLogo"/>
+    </div>
+    <div class="burgerWrapper">
+      <SimpleBurger />
     </div>
   </div>
 </template>
@@ -88,10 +88,21 @@ export default {
 }
 
 .non-visible{
-  opacity: 0 !important;
+  display: none !important;
 }
 
+.burgerWrapper{
+    display: none;
+  }
+
 @media (max-width: 1024px) {
+  .burgerWrapper{
+    display: block;
+    position: absolute;
+    right: 10px;
+    top: 48px;
+  }
+
   .headerLogo {
       margin: 0 auto;
       transition: 0.5s ease-in-out;
@@ -115,11 +126,6 @@ export default {
     justify-content: space-between;
     width: 67.339vw;
   }
-
-  .burgerWrapper{
-    position: absolute;
-  }
-
 
   @media (max-width: 768px) {
     .headerLogo {

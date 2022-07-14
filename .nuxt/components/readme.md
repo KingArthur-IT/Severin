@@ -11,4 +11,5 @@ You can directly use them in pages and other components without the need to impo
 - `<DrawerMenu>` | `<drawer-menu>` (components/drawerMenu.vue)
 - `<Footer>` | `<footer>` (components/footer.vue)
 - `<Header>` | `<header>` (components/header.vue)
+- `<SimpleBurger>` | `<simple-burger>` (components/simpleBurger.vue)
 - `<Slider>` | `<slider>` (components/slider.vue)

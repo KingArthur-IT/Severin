@@ -14,6 +14,9 @@
   "Header": {
     "description": "Auto imported from components/header.vue"
   },
+  "SimpleBurger": {
+    "description": "Auto imported from components/simpleBurger.vue"
+  },
   "Slider": {
     "description": "Auto imported from components/slider.vue"
   }

@@ -3,6 +3,7 @@ export { default as Drawer } from '../../components/drawer.vue'
 export { default as DrawerMenu } from '../../components/drawerMenu.vue'
 export { default as Footer } from '../../components/footer.vue'
 export { default as Header } from '../../components/header.vue'
+export { default as SimpleBurger } from '../../components/simpleBurger.vue'
 export { default as Slider } from '../../components/slider.vue'
 
 // nuxt/nuxt.js#8607
