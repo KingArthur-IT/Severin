@@ -71,7 +71,7 @@ export default {
         return{
             transform: {x: 0, y: 0},
             isOpened: false,
-            selectedImg: 1
+            selectedImg: 1,
         }
     },
     methods:{
@@ -80,11 +80,8 @@ export default {
 
             this.isOpened = true;
 
-            const offsetTop = document.getElementById(this.id).offsetTop;
-            const wrapperHeight = document.getElementById(this.wrapperId).clientHeight;
-            
-            const top = this.wrapperId === 'left-wrapper' ? 200 : 60;
-            this.transform.y = top - (offsetTop + wrapperHeight * this.translateY * 0.01);
+            const offsetTop = document.getElementById(this.id).getBoundingClientRect().top;
+            this.transform.y = 60 - offsetTop;
 
             const offsetLeft = document.getElementById(this.id).getBoundingClientRect().left;
             const itemWidth = document.getElementById(this.id).clientWidth;
@@ -125,8 +122,8 @@ export default {
     z-index: 11;
 }
 .slider__preview-wrapper{
-    width: 440px;
-    height: 600px;
+    width: 290px;
+    height: 400px;
     box-shadow: 0px 20.8333px 20.8333px rgba(0, 0, 0, 0.25);
     object-fit: cover;
     transition: all 1.0s ease-in-out;
@@ -139,8 +136,8 @@ export default {
     transition: transform 0.5s ease-in-out;
 }
 .slider__preview-img{
-    width: 440px;
-    height: 600px;
+    width: 290px;
+    height: 400px;
 }
 
 .slider__back-wrapper{
@@ -148,6 +145,10 @@ export default {
     pointer-events: none;
     transition: opacity 1s ease-in-out;
     position: absolute;
+}
+
+.slider__back-wrapper.show{
+    top: -40px;
 }
 
 .slider__back{
@@ -158,7 +159,6 @@ export default {
 .show{
     opacity: 1 !important;
     pointer-events: all !important;
-    position: relative !important;
 }
 
 .slider__controls-wrapper{
@@ -167,6 +167,7 @@ export default {
     transition: opacity 1s ease-in-out;
     margin-bottom: 20px;
     position: absolute;
+    width: 100%;
 }
 
 .slider__controls-btns{
@@ -200,6 +201,9 @@ export default {
     transition: opacity 1s ease-in-out;
     position: absolute;
 }
+.slider__img-list.show{
+    bottom: -150px;
+}
 
 .slider__img-wrapper{
     width: fit-content;
@@ -221,12 +225,12 @@ export default {
 
 @media (max-width: 1024px) {
   .slider{
-      width: 350px !important;
+      width: 220px !important;
   }
   .slider__preview-img,
   .slider__preview-wrapper {
-    width: 350px !important;
-    height: 480px !important;
+    width: 220px !important;
+    height: 300px !important;
   }
   .slider__img-wrapper img{
     margin: 0 5px;
@@ -247,7 +251,7 @@ export default {
     }
 }
 
-@media (max-width: 568px) {
+@media (max-width: 600px) {
     .slider{
       width: 180px !important;
   }
@@ -261,7 +265,7 @@ export default {
     }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 400px) {
     .slider{
       width: 150px !important;
     }
@@ -272,6 +276,17 @@ export default {
     }
     .slider__img-wrapper img{
         height: 50px;
+    }
+}
+
+@media (max-width: 360px) {
+    .slider{
+      width: 120px !important;
+    }
+    .slider__preview-img,
+    .slider__preview-wrapper {
+        width: 120px !important;
+        height: 170px !important;
     }
 }
 </style>

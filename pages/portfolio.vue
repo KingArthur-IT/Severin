@@ -6,13 +6,13 @@
        @wheel.prevent
   >
     <Header :pageLink="$t('about')" class="non-opacity" :isLogoVisible="!isMenuOpened" :class="{'show': isContentShown, 'non-event': openedSliderId !== ''}"/>
-    <div class="container portfolio__wrapper">
+    <div class="container portfolio__wrapper desktop">
       <div  id="left-wrapper" 
             class="wrapper" 
             :class="{'transition-3s': isWrapperAnimation, 'non-event': openedSliderId.includes('right'), 'wrapper-hide': isOutAnimation}" 
             :style="`transform: translate(${leftWrapperY.currentPositionX}%, ${leftWrapperY.currentPosition}%)`"
       >
-        <Slider v-for="(name, i) in folders.filter((item, index) => {return index % 2 === 0} )" :key="i"
+        <Slider v-for="(name, i) in folders.filter((item, index) => {return index % 3 === 0} )" :key="i"
                 :id="`left-${i}`" 
                 :folderName="name.name"
                 :imgCount="name.imgCount"
@@ -22,11 +22,25 @@
                 :wrapperId="'left-wrapper'"
         />
       </div>
+      <div  id="middle-wrapper" 
+            class="wrapper" 
+            :class="{'transition-3s': isWrapperAnimation, 'non-event': openedSliderId.includes('left'), 'wrapper-hide': isOutAnimation}" 
+            :style="`transform: translate(${middleWrapperY.currentPositionX}%, ${middleWrapperY.currentPosition}%)`">
+        <Slider v-for="(name, i) in folders.filter((item, index) => {return index % 3 === 1} )" :key="i"
+                :id="`middle-${i}`" 
+                :folderName="name.name"
+                :imgCount="name.imgCount"
+                class="marginBottom" 
+                :translateY="middleWrapperY.currentPosition"
+                :class="{'non-opacity': openedSliderId !== '' & openedSliderId !== `middle-${i}`}"
+                :wrapperId="'middle-wrapper'"
+        />
+      </div>
       <div  id="right-wrapper" 
             class="wrapper" 
             :class="{'transition-3s': isWrapperAnimation, 'non-event': openedSliderId.includes('left'), 'wrapper-hide': isOutAnimation}" 
             :style="`transform: translate(${rightWrapperY.currentPositionX}%, ${rightWrapperY.currentPosition}%)`">
-        <Slider v-for="(name, i) in folders.filter((item, index) => {return index % 2 === 1} )" :key="i"
+        <Slider v-for="(name, i) in folders.filter((item, index) => {return index % 3 === 2} )" :key="i"
                 :id="`right-${i}`" 
                 :folderName="name.name"
                 :imgCount="name.imgCount"
@@ -34,6 +48,37 @@
                 :translateY="rightWrapperY.currentPosition"
                 :class="{'non-opacity': openedSliderId !== '' & openedSliderId !== `right-${i}`}"
                 :wrapperId="'right-wrapper'"
+        />
+      </div>
+    </div>
+    <div class="container portfolio__wrapper mobile">
+      <div  id="left-mobile-wrapper" 
+            class="wrapper" 
+            :class="{'transition-3s': isWrapperAnimation, 'non-event': openedSliderId.includes('right'), 'wrapper-hide': isOutAnimation}" 
+            :style="`transform: translate(${leftMobileWrapperY.currentPositionX}%, ${leftMobileWrapperY.currentPosition}%)`"
+      >
+        <Slider v-for="(name, i) in folders.filter((item, index) => {return index % 2 === 0} )" :key="i"
+                :id="`left-mobile-${i}`" 
+                :folderName="name.name"
+                :imgCount="name.imgCount"
+                class="marginBottom" 
+                :translateY="leftMobileWrapperY.currentPosition"
+                :class="{'non-opacity': openedSliderId !== '' & openedSliderId !== `left-mobile-${i}`}"
+                :wrapperId="'left-mobile-wrapper'"
+        />
+      </div>
+      <div  id="right-mobile-wrapper" 
+            class="wrapper" 
+            :class="{'transition-3s': isWrapperAnimation, 'non-event': openedSliderId.includes('left'), 'wrapper-hide': isOutAnimation}" 
+            :style="`transform: translate(${rightMobileWrapperY.currentPositionX}%, ${rightMobileWrapperY.currentPosition}%)`">
+        <Slider v-for="(name, i) in folders.filter((item, index) => {return index % 2 === 1} )" :key="i"
+                :id="`right-mobile-${i}`" 
+                :folderName="name.name"
+                :imgCount="name.imgCount"
+                class="marginBottom" 
+                :translateY="rightWrapperY.currentPosition"
+                :class="{'non-opacity': openedSliderId !== '' & openedSliderId !== `right-mobile-${i}`}"
+                :wrapperId="'right-mobile-wrapper'"
         />
       </div>
     </div>
@@ -57,15 +102,36 @@ export default {
       leftWrapperY: {
         currentPositionX: 0,
         currentPosition: 20,
-        startPosition: -88,
-        endPosition: 1,
+        startPosition: -77,
+        endPosition: 6,
         direction: 1
+      },
+      middleWrapperY: {
+        currentPositionX: 0,
+        currentPosition: -95,
+        startPosition: 4,
+        endPosition: -79,
+        direction: -1
       },
       rightWrapperY: {
         currentPositionX: 0,
+        currentPosition: 20,
+        startPosition: -77,
+        endPosition: 6,
+        direction: 1
+      },
+      leftMobileWrapperY: {
+        currentPositionX: 0,
+        currentPosition: 20,
+        startPosition: -84,
+        endPosition: 3,
+        direction: 1
+      },
+      rightMobileWrapperY: {
+        currentPositionX: 0,
         currentPosition: -120,
-        startPosition: 0.5,
-        endPosition: -77.5,
+        startPosition: 2,
+        endPosition: -85,
         direction: -1
       },
       openedSliderId: '',
@@ -88,6 +154,7 @@ export default {
         {name: 'fifteenthSlider', imgCount: 10},
         {name: 'sixteenthSlider', imgCount: 5},
         {name: 'seventeenthSlider', imgCount: 7},
+        {name: 'eighteenSlider', imgCount: 14},
       ]
     }
   },
@@ -119,6 +186,7 @@ export default {
   },
   mounted(){
     this.leftWrapperY.currentPositionX = 0.0;
+    this.middleWrapperY.currentPositionX = 0.0;
     this.rightWrapperY.currentPositionX = 0.0;
     setTimeout(() => {
       this.isWrapperAnimation = false;
@@ -126,7 +194,11 @@ export default {
     setTimeout(() => {
       this.isContentShown = true;
       this.leftWrapperY.currentPosition = this.leftWrapperY.startPosition;
+      this.middleWrapperY.currentPosition = this.middleWrapperY.startPosition;
       this.rightWrapperY.currentPosition = this.rightWrapperY.startPosition;
+
+      this.leftMobileWrapperY.currentPosition = this.leftMobileWrapperY.startPosition;
+      this.rightMobileWrapperY.currentPosition = this.rightMobileWrapperY.startPosition;
     }, 500);
   },
   methods: {
@@ -135,10 +207,24 @@ export default {
       let posStep = this.leftWrapperY.direction * scrollStep;
       if (this.leftWrapperY.currentPosition + posStep < this.leftWrapperY.endPosition && this.leftWrapperY.currentPosition + posStep > this.leftWrapperY.startPosition)
         this.leftWrapperY.currentPosition += posStep;
+      //mid wrapper scroll
+      posStep = this.middleWrapperY.direction * scrollStep;
+      if (this.middleWrapperY.currentPosition + posStep > this.middleWrapperY.endPosition && this.middleWrapperY.currentPosition + posStep < this.middleWrapperY.startPosition)
+        this.middleWrapperY.currentPosition += posStep;
       //rigth wrapper scroll
       posStep = this.rightWrapperY.direction * scrollStep;
-      if (this.rightWrapperY.currentPosition + posStep > this.rightWrapperY.endPosition && this.rightWrapperY.currentPosition + posStep < this.rightWrapperY.startPosition)
+      if (this.rightWrapperY.currentPosition + posStep < this.rightWrapperY.endPosition && this.rightWrapperY.currentPosition + posStep > this.rightWrapperY.startPosition)
         this.rightWrapperY.currentPosition += posStep;
+    },
+    moveMobileWrapper(scrollStep){
+      //left wrapper scroll
+      let posStep = this.leftMobileWrapperY.direction * scrollStep;
+      if (this.leftMobileWrapperY.currentPosition + posStep < this.leftMobileWrapperY.endPosition && this.leftMobileWrapperY.currentPosition + posStep > this.leftMobileWrapperY.startPosition)
+        this.leftMobileWrapperY.currentPosition += posStep;
+      //rigth wrapper scroll
+      posStep = this.rightMobileWrapperY.direction * scrollStep;
+      if (this.rightMobileWrapperY.currentPosition + posStep > this.rightMobileWrapperY.endPosition && this.rightMobileWrapperY.currentPosition + posStep < this.rightMobileWrapperY.startPosition)
+        this.rightMobileWrapperY.currentPosition += posStep;
     },
     handleWheel (e) {
       //if enter animation is in process
@@ -146,17 +232,22 @@ export default {
 
       const scrollStep = e.deltaY * 0.01;
       this.moveWrapper(scrollStep);
+      this.moveMobileWrapper(scrollStep);
     },
     goToAboutPage(){
-      //this.isWrapperAnimation = true;
       this.isOutAnimation = true;
       this.isContentShown = false;
+
       this.leftWrapperY.currentPosition += 2;
-      this.rightWrapperY.currentPosition += 2;
       this.leftWrapperY.currentPositionX = -2;
+      this.middleWrapperY.currentPosition += 2;
+      this.rightWrapperY.currentPosition += 2;
       this.rightWrapperY.currentPositionX = 2;
-      //this.leftWrapperY.currentPosition = 20;
-      //this.rightWrapperY.currentPosition = -120;
+
+      this.leftMobileWrapperY.currentPosition += 2;
+      this.leftMobileWrapperY.currentPositionX = -2;
+      this.rightMobileWrapperY.currentPosition += 2;
+      this.rightMobileWrapperY.currentPositionX = 2;
       setTimeout(() => {
         this.$nuxt.$router.push('/about');
       }, 500);
@@ -170,11 +261,13 @@ export default {
     },
     startTouchHandle(e){
       this.startTouchHandle = e.changedTouches[0].clientY;
+      console.log(this.startTouchHandle)
     },
     movingTouchHandle(e){
       if (this.startTouchHandle > 0){
         const direction = Math.sign(e.changedTouches[0].clientY - this.startTouchHandle);
         this.moveWrapper(direction * 0.2);
+        this.moveMobileWrapper(direction * 0.2);
       }
     },
   },
@@ -182,8 +275,9 @@ export default {
     isFooterVisible(){
       const delta = 10;
       const isLeftWrapperDown = Math.abs(this.leftWrapperY.currentPosition - this.leftWrapperY.endPosition) < delta;
+      const isMiddleWrapperDown = Math.abs(this.middleWrapperY.currentPosition - this.middleWrapperY.endPosition) < delta;
       const isRightWrapperDown = Math.abs(this.rightWrapperY.currentPosition - this.rightWrapperY.endPosition) < delta;
-      return this.isContentShown && isLeftWrapperDown && isRightWrapperDown;
+      return this.isContentShown && isLeftWrapperDown && isRightWrapperDown && isMiddleWrapperDown;
     }
   }
 };
@@ -203,6 +297,13 @@ export default {
 .portfolio{
   height: 100vh;
   position: relative;
+}
+
+.desktop{
+  display: flex;
+}
+.mobile{
+  display: none !important;
 }
 
 .portfolio__wrapper{
@@ -225,8 +326,9 @@ export default {
 }
 
 .wrapper {
-  width: 440px;
+  width: 290px;
   transition: transform 0.2s linear;
+  position: relative;
 }
 
 .transition-3s{
@@ -277,11 +379,17 @@ export default {
   }
 
   .wrapper {
-    width: 350px;
+    width: 220px;
   }
 }
 
 @media (max-width: 768px) {
+  .desktop{
+    display: none !important;
+  }
+  .mobile{
+    display: flex !important;
+  }
   .marginTop {
     margin: 80px 0 0 0;
   }
@@ -295,15 +403,24 @@ export default {
   }
 }
 
-@media (max-width: 568px) {
+@media (max-width: 600px) {
   .wrapper{
     width: 180px !important;
   }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 400px) {
   .wrapper{
     width: 150px !important;
+  }
+  .marginBottom {
+    margin: 0 0 40px 0;
+  }
+}
+
+@media (max-width: 360px) {
+  .wrapper{
+    width: 120px !important;
   }
 }
 </style>
