@@ -237,7 +237,7 @@ export default {
       //if enter animation is in process
       if (this.isWrapperAnimation || this.openedSliderId !== '') return;
 
-      const scrollStep = e.deltaY * 0.01;
+      const scrollStep = e.deltaY * 0.005;
       this.moveWrapper(scrollStep);
       this.moveMobileWrapper(scrollStep);
     },
@@ -356,7 +356,7 @@ export default {
 }
 
 .transition-3s{
-  transition: transform 3.0s ease-in-out;
+  transition: transform 3.0s linear;
 }
 
 .marginTop {
