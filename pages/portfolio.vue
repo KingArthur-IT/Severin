@@ -20,6 +20,7 @@
                 :translateY="leftWrapperY.currentPosition"
                 :class="{'non-opacity': openedSliderId !== '' & openedSliderId !== `left-${i}`}"
                 :wrapperId="'left-wrapper'"
+                :openedSliderId="openedSliderId"
         />
       </div>
       <div  id="middle-wrapper" 
@@ -34,6 +35,7 @@
                 :translateY="middleWrapperY.currentPosition"
                 :class="{'non-opacity': openedSliderId !== '' & openedSliderId !== `middle-${i}`}"
                 :wrapperId="'middle-wrapper'"
+                :openedSliderId="openedSliderId"
         />
       </div>
       <div  id="right-wrapper" 
@@ -48,6 +50,7 @@
                 :translateY="rightWrapperY.currentPosition"
                 :class="{'non-opacity': openedSliderId !== '' & openedSliderId !== `right-${i}`}"
                 :wrapperId="'right-wrapper'"
+                :openedSliderId="openedSliderId"
         />
       </div>
     </div>
@@ -65,6 +68,7 @@
                 :translateY="leftMobileWrapperY.currentPosition"
                 :class="{'non-opacity': openedSliderId !== '' & openedSliderId !== `left-mobile-${i}`}"
                 :wrapperId="'left-mobile-wrapper'"
+                :openedSliderId="openedSliderId"
         />
       </div>
       <div  id="right-mobile-wrapper" 
@@ -79,6 +83,7 @@
                 :translateY="rightWrapperY.currentPosition"
                 :class="{'non-opacity': openedSliderId !== '' & openedSliderId !== `right-mobile-${i}`}"
                 :wrapperId="'right-mobile-wrapper'"
+                :openedSliderId="openedSliderId"
         />
       </div>
     </div>

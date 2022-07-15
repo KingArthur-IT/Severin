@@ -65,7 +65,11 @@ export default {
         wrapperId:{
             type: String,
             default: 'left-wrapper'
-        }
+        },
+        openedSliderId:{
+            type: String,
+            default: ''
+        },
     },
     data(){
         return{
@@ -76,7 +80,7 @@ export default {
     },
     methods:{
         openSlider(){
-            if (this.transform.x !== 0 || this.transform.y !== 0) return;
+            if (this.transform.x !== 0 || this.transform.y !== 0 || this.openedSliderId !== '') return;
 
             this.isOpened = true;
 
