@@ -19,7 +19,7 @@
             >
             <nuxt-img   v-for="i in imgCount-1" :key="i"
                         class="slider__preview-img" 
-                        :src="`@/static/${folderName}/${i+1}.webp`" 
+                        :src="require(`@/static/${folderName}/${i+1}.webp`)" 
                         loading="lazy"
             />
         </div>
@@ -34,7 +34,7 @@
           <div class="slider__img-wrapper" :style="`transform: translateX(${imgListTransform}%)`">
             <nuxt-img   v-for="i in imgCount" :key="i"
                         :class="{'active-img': i === selectedImg}"
-                        :src="`@/static/${folderName}/${i}.webp`" 
+                        :src="require(`@/static/${folderName}/${i}.webp`)" 
                         loading="lazy"
                         @click="selectedImg = i"
             />
