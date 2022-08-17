@@ -133,6 +133,7 @@ export default {
     transition: all 1.0s ease-in-out;
     margin-bottom: 20px;
     overflow: hidden;
+    cursor: pointer;
 }
 .slider__preview{
     width: fit-content;
