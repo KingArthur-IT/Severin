@@ -19,7 +19,7 @@
             >
             <nuxt-img   v-for="i in imgCount-1" :key="i"
                         class="slider__preview-img" 
-                        :src="`/${folderName}/${i+1}.png`" 
+                        :src="`/${folderName}/${i+1}.webp`" 
                         loading="lazy"
             />
         </div>
